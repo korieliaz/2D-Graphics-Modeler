@@ -97,18 +97,6 @@ void AllShapes::moveShape(int id, const QPoint &shift)
     }
 }
 
-ShapeLabels::eShapes whatShape(std::string thisName)
-{
-    int i{0};
-
-    while(thisName != ShapeLabels::SHAPES_LIST[i])
-    {
-        ++i;
-    }
-
-    return ShapeLabels::eShapes(i);
-}
-
 string AllShapes::findShape(int id)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -176,16 +164,6 @@ void AllShapes::deleteShape(int id)
 void AllShapes::printAll()
 {
      fstream fout("shapes.txt", ios::out);
-
-//     for(Shape *it : v_Shapes)
-//     {
-//         fout << it -> print();
-
-//         if(it != *(v_Shapes.end()))
-//         {
-//             fout << endl;
-//         }
-//     }
 
      myVector::vector<Shape*>::iterator it = v_Shapes.begin();
      int i{0};

@@ -18,9 +18,6 @@ public:
 
     ~Rectangle() override {}
 
-    // Return label for this spec index
-    std::string getSpec(int specNum) const override {return DimensionLabels[specNum];}
-
     // Calc perimeter
     dim::perimeter calcPerimeter() const override {return multiply(*(shapeDimensions + int(Specifications::W)), 2.0) +
                                                 multiply(*(shapeDimensions + int(Specifications::H)), 2.0);}

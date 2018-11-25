@@ -16,9 +16,6 @@ public:
 
     ~Polyline() override {delete[] points;}
 
-    // Return label for this spec index
-    std::string getSpec(int specNum) const override;
-
     // Calc perimeter
     dim::perimeter calcPerimeter() const override;
     // Calc area

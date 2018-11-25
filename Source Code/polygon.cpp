@@ -22,22 +22,6 @@ Polygon::Polygon(int shapeId, std::string shapeType, int numDimensions, dim::spe
     setPosition();
 }
 
-std::string Polygon::getSpec(int specNum) const
-{
-    std::string returnString{""};
-
-    if(specNum % 2 == 0)
-    {
-        returnString = "x" + std::to_string((specNum/2)+1);
-    }
-    else
-    {
-        returnString = "y" + std::to_string((specNum/2)+1);
-    }
-
-    return returnString;
-}
-
 dim::perimeter Polygon::calcPerimeter() const
 {
     int *x0{nullptr}, *x1{nullptr}, *y0{nullptr}, *y1{nullptr};

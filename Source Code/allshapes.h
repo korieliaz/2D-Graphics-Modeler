@@ -24,8 +24,6 @@ class AllShapes
 
         void moveShape(int id, const QPoint &shift);
 
-        ShapeLabels::eShapes whatShape(std::string);
-
         string findShape(int id);
 
         Shape* findShapePtr(int id);

@@ -106,9 +106,6 @@ public:
     // Set Position
     virtual void setPosition() = 0;
 
-    // Returns dimension label for
-    virtual std::string getSpec(int specNum) const = 0;
-
     dim::specs* getDimensions() {return shapeDimensions;}
 
     int getNumDimensions() {return numDimensions;}

@@ -21,9 +21,6 @@ public:
 
     ~Line() override {}
 
-    // Return label for this spec index
-    std::string getSpec(int specNum) const override {return DimensionLabels[specNum];}
-
     // Calc perimeter
     dim::perimeter calcPerimeter() const override;
     // Calc area
@@ -36,9 +33,6 @@ public:
     void setPosition() override;
 
     std::string print() const override;
-
-
-
 
 private:
     QPoint point1;

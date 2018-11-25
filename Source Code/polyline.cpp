@@ -21,22 +21,7 @@ Polyline::Polyline(int shapeId, std::string shapeType, int numDimensions, dim::s
         points[i].setX(0);
         points[i].setY(0);
     }
-    setPosition();}
-
-std::string Polyline::getSpec(int specNum) const
-{
-    std::string returnString{""};
-
-    if(specNum % 2 == 0)
-    {
-        returnString = "x" + std::to_string((specNum/2)+1);
-    }
-    else
-    {
-        returnString = "y" + std::to_string((specNum/2)+1);
-    }
-
-    return returnString;
+    setPosition();
 }
 
 dim::perimeter Polyline::calcPerimeter() const
@@ -88,33 +73,6 @@ void Polyline::move(const QPoint &shift)
 
 void Polyline::setPosition()
 {   
-//    int i = 0;
-
-//    for(QPoint* it = points ; it < points + (numDimensions / 2); ++it)
-//    {
-//        it -> setX(shapeDimensions[i]);
-//        std::cout << shapeDimensions[i];
-//        it -> setY(shapeDimensions[i + 1]);
-//        std::cout << shapeDimensions[i + 1];
-//        std::cout << it;
-//        i += 2;
-//    }
-
-//    for(int i = 0; i < (numDimensions/2); ++i)
-//    {
-//        points[i].setX(shapeDimensions[2*i]);
-//        points[i].setY(shapeDimensions[2*i+1]);
-//    }
-
-//    points[0].setX(shapeDimensions[0]);
-//    points[0].setY(shapeDimensions[1]);
-//    points[1].setX(shapeDimensions[2]);
-//    points[1].setY(shapeDimensions[3]);
-//    points[2].setX(shapeDimensions[4]);
-//    points[2].setY(shapeDimensions[5]);
-//    points[3].setX(shapeDimensions[6]);
-//    points[3].setY(shapeDimensions[7]);
-
     for(int i = 0; i < (numDimensions/2); i++)
     {
         points[i].setX(shapeDimensions[(2*i)]);

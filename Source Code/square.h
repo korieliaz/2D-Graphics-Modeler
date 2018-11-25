@@ -18,9 +18,6 @@ public:
 
     ~Square() override {}
 
-    // Return label for this spec index
-    std::string getSpec(int specNum) const override {return DimensionLabels[specNum];}
-
     // Calc perimeter
     dim::perimeter calcPerimeter() const override {return multiply(*(shapeDimensions + int(Specifications::L)), 4.0);}
     // Calc area

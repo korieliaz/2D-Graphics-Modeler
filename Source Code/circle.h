@@ -20,9 +20,6 @@ public:
 
     ~Circle() override {}
 
-    // Return label for this spec index
-    std::string getSpec(int specNum) const override {return DimensionLabels[specNum];}
-
     void draw() override;
 
     void move(const QPoint &shift) override;

@@ -21,9 +21,6 @@ public:
 
     ~Text() override {}
 
-    // Return label for this spec index
-    std::string getSpec(int specNum) const override {return DimensionLabels[specNum];}
-
     // Calc perimeter
     dim::perimeter calcPerimeter() const override {return 0;}
     // Calc area
