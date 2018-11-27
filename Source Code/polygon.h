@@ -11,12 +11,12 @@ class Polygon: public Shape
 {
 public:
     // Default
-    Polygon();
+    Polygon() {}
 
     // CREATE SHAPE_DIMENSIONS ARRAY BEFORE FEEDING INTO CONSTRUCTOR
     Polygon(int shapeId, std::string shapeType, int numDimensions, dim::specs* shapeDimensions);
 
-    ~Polygon() override {delete[] points;}
+    ~Polygon() override {}
 
     // Calc perimeter
     dim::perimeter calcPerimeter() const override;
@@ -30,9 +30,8 @@ public:
     void setPosition() override;
 
 
-
 private:
-    QPoint *points;
+    std::vector<QPoint> points;
 
 };
 

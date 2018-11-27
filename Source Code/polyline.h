@@ -9,12 +9,14 @@ class Polyline: public Shape
 {
 public:
     // Default
-    Polyline();
+    Polyline() {}
 
     // CREATE SHAPE_DIMENSIONS ARRAY BEFORE FEEDING INTO CONSTRUCTOR
     Polyline(int shapeId, std::string shapeType, int numDimensions, dim::specs* shapeDimensions);
 
-    ~Polyline() override {delete[] points;}
+    ~Polyline() override {}
+
+    void setPosition() override;
 
     // Calc perimeter
     dim::perimeter calcPerimeter() const override;
@@ -27,26 +29,10 @@ public:
 
     std::string print() const override;
 
-    void setPosition() override;
-
 
 private:
-    QPoint *points;
+    std::vector<QPoint> points;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif /*POLYLINE_H_*/

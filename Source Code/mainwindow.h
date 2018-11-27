@@ -145,7 +145,7 @@ private slots:
 
 private:
     Ui::MainWindow  *ui;
-    AllShapes shapes;
+    AllShapes allShapes;
     enum column {TYPE, ID, PERIMETER, AREA};
 
 

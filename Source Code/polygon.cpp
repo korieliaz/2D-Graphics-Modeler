@@ -1,24 +1,8 @@
 #include "polygon.h"
 
-Polygon::Polygon()
-{
-    points = new QPoint[numDimensions / 2];
-    for(int i = 0; i < numDimensions/2; ++i)
-    {
-        points[i].setX(0);
-        points[i].setY(0);
-    }
-}
-
 Polygon::Polygon(int shapeId, std::string shapeType, int numDimensions, dim::specs *shapeDimensions)
     :Shape(shapeId, shapeType, numDimensions, shapeDimensions)
 {
-    points = new QPoint [numDimensions / 2];
-    for(int i = 0; i < numDimensions/2; ++i)
-    {
-        points[i].setX(0);
-        points[i].setY(0);
-    }
     setPosition();
 }
 
@@ -71,25 +55,16 @@ dim::area Polygon::calcArea() const
 
 void Polygon::draw()
 {
-    QPoint staticPoints[numDimensions/2];
-
-    for(int i = 0; i < numDimensions/2; ++i)
-    {
-        staticPoints[i].setX(shapeDimensions[2*i]);
-        staticPoints[i].setY(shapeDimensions[2*i+1]);
-    }
-
-    points = staticPoints;
     painter.setPen(pen);
     painter.setBrush(brush);
-    painter.drawPolygon(staticPoints, numDimensions/2);
+    painter.drawPolygon(&points[0], numDimensions/2);
     painter.setPen(Qt::black);
     painter.drawText(points[0].x(), points[0].y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
 void Polygon::move(const QPoint &shift)
 {
-    for(QPoint *it = points; it < points + (numDimensions / 2); ++it)
+    for(std::vector<QPoint>::iterator it = points.begin(); it != points.end(); ++it)
     {
         *it += shift;
     }
@@ -97,18 +72,11 @@ void Polygon::move(const QPoint &shift)
 
 void Polygon::setPosition()
 {
-//    int i = 0;
-
-//    for(QPoint* it = points ; it < points + (numDimensions / 2); ++it)
-//    {
-//        it -> setX(shapeDimensions[i]);
-//        it -> setY(shapeDimensions[i + 1]);
-//        i += 2;
-//    }
-
+    QPoint newPoint;
     for(int i = 0; i < (numDimensions/2); i++)
     {
-        points[i].setX(shapeDimensions[(2*i)]);
-        points[i].setY(shapeDimensions[(2*i)+1]);
+        newPoint.setX(shapeDimensions[(2*i)]);
+        newPoint.setY(shapeDimensions[(2*i)+1]);
+        points.push_back(newPoint);
     }
 }

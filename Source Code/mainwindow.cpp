@@ -1,3 +1,33 @@
+/****************************************************************
+ * 2-D GRAPHICS MODELER
+ * ==============================================================
+ * Models custom shapes according to user specifications
+ * --------------------------------------------------------------
+ * Functions:
+ *  Add     - Add new shape
+ *  Edit    - Change shape specifications
+ *  Render  - Display all shapes
+ *  Delete  - Delete a shape
+ * --------------------------------------------------------------
+ * Shapes:
+ *  Line        - Line from (X0,Y0) to (X1,Y1)
+ *  Polyline    - Series of lines from (X0,Y0) to (X1,Y1) ...
+ *                (X(n-1),Y(n-1)) to (Xn,Yn)
+ *  Polygon     - Solid made of series of regular or irregular
+ *                sides, designated by points - (X0,Y0) to (X1,Y1)
+ *                ... (Xn,Yn) to (X0,Y0)
+ *  Rectangle   - Rectangle with user designated height,
+ *                width
+ *  Square      - Square with user designated width
+ *  Ellipse     - Ellipse with user designated major, minor
+ *                axes (radii)
+ *  Circle      - Circle with user designated radius
+ *  Text        - Text with user defined text box and text
+ *
+ * ==============================================================
+ *  Programmers:
+ * **************************************************************/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "canvas.h"
@@ -5,19 +35,27 @@
 #include <QtWidgets>
 #include <QTableWidget>
 
+/****************************************************************
+ * MAIN WINDOW CONSTRUCTOR
+ * ==============================================================
+ * Creates new main window, sets up for user input
+ * --------------------------------------------------------------
+ * IN
+ * ------------------------
+ *        parent : pointer to main window
+ * **************************************************************/
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    shapes(ui->renderArea)
+    QMainWindow(parent),        // Passes parent pointer to main window
+    ui(new Ui::MainWindow),     // Creates new main window
+    allShapes(ui->renderArea)   // Passes canvas pointer to render shapes
 {
-    shapes.addShapesFromFile();
+    // FILE IO - Populates allShape's shape vector from file backup
+    allShapes.addShapesFromFile();
+    // UI - Sets up
     ui->setupUi(this);
-    ui -> renderArea -> getShapes(shapes.getVector());
+    ui -> renderArea -> getShapes(allShapes.getVector());
     ui -> contactUs -> hide();
 
-    /************
-     * ADD SHAPE
-     ************/
     // SET TO USER LEVEL ACCESS FOR CONSTRUCTOR
     ui -> userAdd -> hide();
     ui -> adminAdd -> show();
@@ -36,34 +74,48 @@ MainWindow::MainWindow(QWidget *parent) :
     updateShapeTables();
 
 }
-
+/****************************************************************
+ * DESTRUCTOR
+ * ==============================================================
+ * Deletes ui pointer
+ * **************************************************************/
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/****************************************************************
+ * UPDATE SHAPE TABLES
+ * ==============================================================
+ * Updates shape tables, calls sort functions to sort
+ * --------------------------------------------------------------
+ * Sorts by:
+ *  ID
+ *  Area
+ *  Perimeter
+ * **************************************************************/
 void MainWindow::updateShapeTables()
 {
-    ui -> shapeIDTable->setRowCount(shapes.getShapeCount());
+    ui -> shapeIDTable->setRowCount(allShapes.getShapeCount());
     sortIDTable();
-    ui ->areaTable -> setRowCount(shapes.getShapeCount());
+    ui ->areaTable -> setRowCount(allShapes.getShapeCount());
     sortAreaTable();
-    ui -> perimeterTable -> setRowCount(shapes.getShapeCount());
+    ui -> perimeterTable -> setRowCount(allShapes.getShapeCount());
     sortPerimeterTable();
 }
 
+/****************************************************************
+ * Sort ID table
+ * ==============================================================
+ * Sorts vector by ID, sets values in ID-sorted table
+ * **************************************************************/
 void MainWindow::sortIDTable()
 {
-    myVector::vector<Shape *> sortedVector = shapes.getVector();
-
+    myVector::vector<Shape *> sortedVector = allShapes.getVector();
 
     selectionSort(sortedVector, idCompare);
-    for(Shape *it : sortedVector)
-    {
-        cout << it -> print();
-        cout << endl;
-    }
-    for(int i = 0; i < shapes.getVector().size(); ++i)
+
+    for(int i = 0; i < allShapes.getVector().size(); ++i)
     {
         ui->shapeIDTable->setItem(i, TYPE, new QTableWidgetItem(QString::fromStdString((sortedVector[i]->getType()))));
         ui->shapeIDTable->setItem(i, ID, new QTableWidgetItem(QString::number(sortedVector[i]->getID())));
@@ -72,17 +124,18 @@ void MainWindow::sortIDTable()
     }
 }
 
+/******************************************************************
+ * Sort Perimeter table
+ * ================================================================
+ * Sorts vector by perimeter, sets values in perimeter-sorted table
+ * ****************************************************************/
 void MainWindow::sortPerimeterTable()
 {
-    myVector::vector<Shape *> sortedVector = shapes.getVector();
+    myVector::vector<Shape *> sortedVector = allShapes.getVector();
 
     selectionSort(sortedVector, perimeterCompare);
-    for(Shape *it : sortedVector)
-    {
-        cout << it -> print();
-        cout << endl;
-    }
-    for(int i = 0; i < shapes.getVector().size(); ++i)
+
+    for(int i = 0; i < allShapes.getVector().size(); ++i)
     {
         ui->perimeterTable->setItem(i, TYPE, new QTableWidgetItem(QString::fromStdString((sortedVector[i]->getType()))));
         ui->perimeterTable->setItem(i, ID, new QTableWidgetItem(QString::number(sortedVector[i]->getID())));
@@ -90,17 +143,18 @@ void MainWindow::sortPerimeterTable()
     }
 }
 
+/******************************************************************
+ * Sort Area table
+ * ================================================================
+ * Sorts vector by area, sets values in area-sorted table
+ * ****************************************************************/
 void MainWindow::sortAreaTable()
 {
-    myVector::vector<Shape *> sortedVector = shapes.getVector();
+    myVector::vector<Shape *> sortedVector = allShapes.getVector();
 
     selectionSort(sortedVector, areaCompare);
-    for(Shape *it : sortedVector)
-    {
-        cout << it -> print();
-        cout << endl;
-    }
-    for(int i = 0; i < shapes.getVector().size(); ++i)
+
+    for(int i = 0; i < allShapes.getVector().size(); ++i)
     {
         ui->areaTable->setItem(i, TYPE, new QTableWidgetItem(QString::fromStdString((sortedVector[i]->getType()))));
         ui->areaTable->setItem(i, ID, new QTableWidgetItem(QString::number(sortedVector[i]->getID())));
@@ -108,6 +162,11 @@ void MainWindow::sortAreaTable()
     }
 }
 
+/******************************************************************
+ * DISABLE ADD TAB POLYLINE SPINBOXES
+ * ================================================================
+ * Disables polyline spinboxes until number of line points is set
+ * ****************************************************************/
 void MainWindow::disablePolylineSpinBoxes()
 {
     ui -> addPolylinex1 -> setEnabled(false);
@@ -132,6 +191,11 @@ void MainWindow::disablePolylineSpinBoxes()
     ui -> addPolyliney10 -> setEnabled(false);
 }
 
+/******************************************************************
+ * DISABLE EDIT TAB POLYLINE SPINBOXES
+ * ================================================================
+ * Disables polyline spinboxes until number of line points is set
+ * ****************************************************************/
 void MainWindow::disableEditPolylineSpinBoxes()
 {
     ui -> editPolylinex1 -> setEnabled(false);
@@ -156,6 +220,11 @@ void MainWindow::disableEditPolylineSpinBoxes()
     ui -> editPolyliney10 -> setEnabled(false);
 }
 
+/******************************************************************
+ * DISABLE ADD TAB POLYGON SPINBOXES
+ * ================================================================
+ * Disables polygon spinboxes until number of line points is set
+ * ****************************************************************/
 void MainWindow::disablePolygonSpinBoxes()
 {
     ui -> addPolygonx1 -> setEnabled(false);
@@ -180,6 +249,11 @@ void MainWindow::disablePolygonSpinBoxes()
     ui -> addPolygony10 -> setEnabled(false);
 }
 
+/******************************************************************
+ * DISABLE EDIT TAB POLYGON SPINBOXES
+ * ================================================================
+ * Disables polygon spinboxes until number of line points is set
+ * ****************************************************************/
 void MainWindow::disableEditPolygonSpinBoxes()
 {
     ui -> editPolygonx1 -> setEnabled(false);
@@ -204,6 +278,11 @@ void MainWindow::disableEditPolygonSpinBoxes()
     ui -> editPolygony10 -> setEnabled(false);
 }
 
+/******************************************************************
+ * RESET ADD LINE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddLine()
 {
     ui -> addLinex1 -> setValue(0);
@@ -218,6 +297,11 @@ void MainWindow::clearAddLine()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD POLYLINE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddPolyline()
 {
     ui -> addPolylineNumPoints -> setCurrentIndex(0);
@@ -249,6 +333,11 @@ void MainWindow::clearAddPolyline()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD POLYGON SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddPolygon()
 {
     ui -> addPolygonNumPoints -> setCurrentIndex(0);
@@ -282,6 +371,11 @@ void MainWindow::clearAddPolygon()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD RECTANGLE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddRectangle()
 {
     ui -> addRectanglePenColor -> setCurrentIndex(0);
@@ -298,6 +392,11 @@ void MainWindow::clearAddRectangle()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD SQUARE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddSquare()
 {
     ui -> addSquarePenColor->setCurrentIndex(0);
@@ -314,6 +413,11 @@ void MainWindow::clearAddSquare()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD ELLIPSE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddEllipse()
 {
     ui -> addEllipsePenColor->setCurrentIndex(0);
@@ -331,6 +435,11 @@ void MainWindow::clearAddEllipse()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD CIRCLE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddCircle()
 {
     ui -> addCirclePenColor->setCurrentIndex(0);
@@ -347,6 +456,11 @@ void MainWindow::clearAddCircle()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ADD TEXT SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearAddText()
 {
     ui -> addTextColor->setCurrentIndex(0);
@@ -363,6 +477,11 @@ void MainWindow::clearAddText()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET ALL ADD SPECIFICATIONS
+ * ================================================================
+ * Resets specifications for all forms
+ * ****************************************************************/
 void MainWindow::clearAdd()
 {
     clearAddLine();
@@ -375,6 +494,11 @@ void MainWindow::clearAdd()
     clearAddText();
 }
 
+/******************************************************************
+ * RESET EDIT LINE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditLine()
 {
     ui -> editLinex1 -> setValue(0);
@@ -388,6 +512,11 @@ void MainWindow::clearEditLine()
     ui -> editLineJoinStyle -> setCurrentIndex(0);
 }
 
+/******************************************************************
+ * RESET EDIT POLYLINE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditPolyline()
 {
     ui -> editPolylineNumPoints -> setCurrentIndex(0);
@@ -418,6 +547,11 @@ void MainWindow::clearEditPolyline()
     ui -> editPolyliney10 -> setValue(0);
 }
 
+/******************************************************************
+ * RESET EDIT POLYGON SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditPolygon()
 {
     ui -> editPolygonNumPoints -> setCurrentIndex(0);
@@ -450,6 +584,11 @@ void MainWindow::clearEditPolygon()
     ui -> editPolygony10 -> setValue(0);
 }
 
+/******************************************************************
+ * RESET EDIT RECTANGLE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditRectangle()
 {
     ui -> editRectanglePenColor -> setCurrentIndex(0);
@@ -465,6 +604,11 @@ void MainWindow::clearEditRectangle()
     ui -> editRectangleh -> setValue(0);
 }
 
+/******************************************************************
+ * RESET EDIT SQUARE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditSquare()
 {
     ui -> editSquarePenColor->setCurrentIndex(0);
@@ -480,6 +624,11 @@ void MainWindow::clearEditSquare()
     ui -> editSquarel -> setValue(0);
 }
 
+/******************************************************************
+ * RESET EDIT ELLIPSE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditEllipse()
 {
     ui -> editEllipsePenColor->setCurrentIndex(0);
@@ -496,6 +645,11 @@ void MainWindow::clearEditEllipse()
     ui -> editEllipseb -> setValue(0);
 }
 
+/******************************************************************
+ * RESET EDIT CIRCLE SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditCircle()
 {
     ui -> editCirclePenColor->setCurrentIndex(0);
@@ -511,6 +665,11 @@ void MainWindow::clearEditCircle()
     ui -> editCircler -> setValue(0);
 }
 
+/******************************************************************
+ * RESET EDIT TEXT SPECIFICATIONS
+ * ================================================================
+ * Resets form specifications to zero or default combo box setting
+ * ****************************************************************/
 void MainWindow::clearEditText()
 {
     ui -> editTextColor->setCurrentIndex(0);
@@ -526,6 +685,11 @@ void MainWindow::clearEditText()
     ui -> editTexttext -> clear();
 }
 
+/******************************************************************
+ * RESET ALL EDIT SPECIFICATIONS
+ * ================================================================
+ * Resets specifications for all forms
+ * ****************************************************************/
 void MainWindow::clearEdit()
 {
     clearEditLine();
@@ -538,12 +702,17 @@ void MainWindow::clearEdit()
     clearEditText();
 }
 
+/******************************************************************
+ * LIST CURRENT SHAPE IDS
+ * ================================================================
+ * Returns QStringList of all current shape IDs
+ * ****************************************************************/
 QStringList MainWindow::set_getShapeIds()
 {
     QStringList ids;
     int i{0};
 
-    for(Shape *it : shapes.getVector())
+    for(Shape *it : allShapes.getVector())
     {
         ids.insert(i, QString::number(it -> getID()));
         ++i;
@@ -552,16 +721,21 @@ QStringList MainWindow::set_getShapeIds()
     return ids;
 }
 
+/******************************************************************
+ * SET EDIT FIELDS WITH CURRENT SHAPE INFORMATION
+ * ================================================================
+ * Sets edit form fields with shape's current specifications
+ * ****************************************************************/
 void MainWindow::setCurrentShapeInfo()
 {
     int shapeId = (ui->editShapeID->currentText()).toInt();
-    Shape* p = shapes.findShapePtr(shapeId);
+    Shape* p = allShapes.findShapePtr(shapeId);
     int i{0};
 
     QPen pen = p->getPen();
     QBrush brush = p->getBrush();
 
-    if(shapes.findShape(shapeId)=="Line")
+    if(allShapes.findShape(shapeId)=="Line")
     {
         ui ->editLinex1->setValue(p->getDimensions()[int(Line::Specifications::X1)]);
         ui ->editLiney1->setValue(p->getDimensions()[int(Line::Specifications::Y1)]);
@@ -574,10 +748,12 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editLineCapStyle->setCurrentText(QString::fromStdString(getCapStyleAsString(pen.capStyle())));
         ui ->editLineJoinStyle->setCurrentText(QString::fromStdString(getJoinStyleAsString(pen.joinStyle())));
     }
-    else if(shapes.findShape(shapeId)=="Polyline")
+    else if(allShapes.findShape(shapeId)=="Polyline")
     {
+        clearEditPolyline();
+
         int numPolylinePoints = p->getNumDimensions() / 2;
-        ui->editPolylineNumPoints->setCurrentIndex(numPolylinePoints);
+        ui->editPolylineNumPoints->setCurrentIndex(0);
 
         if(numPolylinePoints >= 1)
         {
@@ -645,11 +821,12 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editPolylineCapStyle->setCurrentText(QString::fromStdString(getCapStyleAsString(pen.capStyle())));
         ui ->editPolylineJoinStyle->setCurrentText(QString::fromStdString(getJoinStyleAsString(pen.joinStyle())));
     }
-    else if(shapes.findShape(shapeId)=="Polygon")
+    else if(allShapes.findShape(shapeId)=="Polygon")
     {
-        int numPolygonPoints = p->getNumDimensions() / 2;
-        ui->editPolygonNumPoints->setCurrentIndex(numPolygonPoints);
+        clearEditPolygon();
 
+        int numPolygonPoints = p->getNumDimensions() / 2;
+        ui->editPolygonNumPoints->setCurrentIndex(0);
 
         if(numPolygonPoints >= 1)
         {
@@ -719,7 +896,7 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editPolygonBrushColor->setCurrentText(QString::fromStdString(getColorAsString(brush.color())));
         ui ->editPolygonBrushStyle->setCurrentText(QString::fromStdString(getBrushStyleAsString(brush.style())));
     }
-    else if(shapes.findShape(shapeId)=="Rectangle")
+    else if(allShapes.findShape(shapeId)=="Rectangle")
     {
         ui ->editRectanglex1->setValue(p->getDimensions()[int(Rectangle::Specifications::X1)]);
         ui ->editRectangley1->setValue(p->getDimensions()[int(Rectangle::Specifications::Y1)]);
@@ -735,7 +912,7 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editRectangleBrushColor->setCurrentText(QString::fromStdString(getColorAsString(brush.color())));
         ui ->editRectangleBrushStyle->setCurrentText(QString::fromStdString(getBrushStyleAsString(brush.style())));
     }
-    else if(shapes.findShape(shapeId)=="Square")
+    else if(allShapes.findShape(shapeId)=="Square")
     {
         ui ->editSquarex1->setValue(p->getDimensions()[int(Square::Specifications::X1)]);
         ui ->editSquarey1->setValue(p->getDimensions()[int(Square::Specifications::Y1)]);
@@ -750,7 +927,7 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editSquareBrushColor->setCurrentText(QString::fromStdString(getColorAsString(brush.color())));
         ui ->editSquareBrushStyle->setCurrentText(QString::fromStdString(getBrushStyleAsString(brush.style())));
     }
-    else if(shapes.findShape(shapeId)=="Ellipse")
+    else if(allShapes.findShape(shapeId)=="Ellipse")
     {
         ui ->editEllipsex1->setValue(p->getDimensions()[int(Ellipse::Specifications::X1)]);
         ui ->editEllipsey1->setValue(p->getDimensions()[int(Ellipse::Specifications::Y1)]);
@@ -766,7 +943,7 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editEllipseBrushColor->setCurrentText(QString::fromStdString(getColorAsString(brush.color())));
         ui ->editEllipseBrushStyle->setCurrentText(QString::fromStdString(getBrushStyleAsString(brush.style())));
     }
-    else if(shapes.findShape(shapeId)=="Circle")
+    else if(allShapes.findShape(shapeId)=="Circle")
     {
         ui ->editCirclex1->setValue(p->getDimensions()[int(Circle::Specifications::X1)]);
         ui ->editCircley1->setValue(p->getDimensions()[int(Circle::Specifications::Y1)]);
@@ -781,7 +958,7 @@ void MainWindow::setCurrentShapeInfo()
         ui ->editCircleBrushColor->setCurrentText(QString::fromStdString(getColorAsString(brush.color())));
         ui ->editCircleBrushStyle->setCurrentText(QString::fromStdString(getBrushStyleAsString(brush.style())));
     }
-    else if(shapes.findShape(shapeId)=="Text")
+    else if(allShapes.findShape(shapeId)=="Text")
     {
         QFont font = p->getFont();
 
@@ -898,7 +1075,7 @@ void MainWindow::on_lineSave_clicked()
 
     dim::specs *dims = lineDimensions;
 
-    Shape* p_Shape = new class::Line(shapes.incrementShapeCount(), SHAPES_LIST[LINE], NUM_LINE_SPECS, dims);
+    Shape* p_Shape = new class::Line(allShapes.incrementShapeCount(), SHAPES_LIST[LINE], NUM_LINE_SPECS, dims);
     QPen pen;
 
     pen.setColor(QColor(ui -> addLinePenColor->currentText()));
@@ -908,7 +1085,7 @@ void MainWindow::on_lineSave_clicked()
     pen.setJoinStyle(convertToPenJoinStyle((ui -> addLineJoinStyle -> currentText()).toStdString()));
 
     p_Shape -> setPen(pen);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Line Added\nClick Update to View Changes", QMessageBox::Ok);
 
@@ -941,7 +1118,7 @@ void MainWindow::on_editLineSave_clicked()
     pen.setCapStyle(convertToPenCapStyle((ui -> editLineCapStyle -> currentText()).toStdString()));
     pen.setJoinStyle(convertToPenJoinStyle((ui -> editLineJoinStyle -> currentText()).toStdString()));
 
-    shapes.editShape(shapeId, NUM_LINE_SPECS, dims, pen);
+    allShapes.editShape(shapeId, NUM_LINE_SPECS, dims, pen);
 
     QMessageBox::information(this, "Edit Successful", "Line Updated\nChanges are now visible", QMessageBox::Ok);
     setCurrentShapeInfo();
@@ -1021,7 +1198,7 @@ void MainWindow::on_polylineSave_clicked()
 
     dim::specs *dims = polylineDimensions;
 
-    Shape* p_Shape = new class::Polyline(shapes.incrementShapeCount(), SHAPES_LIST[POLYLINE], numPolylineSpecs, dims);
+    Shape* p_Shape = new class::Polyline(allShapes.incrementShapeCount(), SHAPES_LIST[POLYLINE], numPolylineSpecs, dims);
     QPen pen;
 
     pen.setColor(QColor(ui -> addPolylinePenColor->currentText()));
@@ -1031,7 +1208,7 @@ void MainWindow::on_polylineSave_clicked()
     pen.setJoinStyle(convertToPenJoinStyle((ui -> addPolylineJoinStyle -> currentText()).toStdString()));
 
     p_Shape -> setPen(pen);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Polyline Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddPolyline();
@@ -1044,87 +1221,101 @@ void MainWindow::on_polylineCancel_clicked()
 
 void MainWindow::on_editPolylineSave_clicked()
 {
-    int numPolylinePoints = ui -> editPolylineNumPoints -> currentIndex();
-    int numPolylineSpecs = numPolylinePoints * 2;
-    int i{0};
-    dim::specs polylineDimensions[numPolylineSpecs];
+    try
+    {
+        int numPolylinePoints = ui -> editPolylineNumPoints -> currentIndex();
 
-    if(numPolylinePoints >= 1)
-    {
-        polylineDimensions[i] = ui -> editPolylinex1 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney1 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 2)
-    {
-        polylineDimensions[i] = ui -> editPolylinex2 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney2 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 3)
-    {
-        polylineDimensions[i] = ui -> editPolylinex3 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney3 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 4)
-    {
-        polylineDimensions[i] = ui -> editPolylinex4 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney4 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 5)
-    {
-        polylineDimensions[i] = ui -> editPolylinex5 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney5 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 6)
-    {
-        polylineDimensions[i] = ui -> editPolylinex6 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney6 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 7)
-    {
-        polylineDimensions[i] = ui -> editPolylinex7 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney7 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 8)
-    {
-        polylineDimensions[i] = ui -> editPolylinex8 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney8 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints >= 9)
-    {
-        polylineDimensions[i] = ui -> editPolylinex9 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney9 -> value();
-        i += 2;
-    }
-    if(numPolylinePoints == 10)
-    {
-        polylineDimensions[i] = ui -> editPolylinex10 -> value();
-        polylineDimensions[i+1] = ui -> editPolyliney10 -> value();
-    }
+        if(numPolylinePoints == 0)
+        {
+            throw(1);
+        }
 
-    dim::specs *dims = polylineDimensions;
-    QPen pen;
-    int shapeId;
+        int numPolylineSpecs = numPolylinePoints * 2;
+        int i{0};
+        dim::specs polylineDimensions[numPolylineSpecs];
 
-    shapeId = (ui->editShapeID->currentText()).toInt();
+        if(numPolylinePoints >= 1)
+        {
+            polylineDimensions[i] = ui -> editPolylinex1 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney1 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 2)
+        {
+            polylineDimensions[i] = ui -> editPolylinex2 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney2 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 3)
+        {
+            polylineDimensions[i] = ui -> editPolylinex3 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney3 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 4)
+        {
+            polylineDimensions[i] = ui -> editPolylinex4 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney4 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 5)
+        {
+            polylineDimensions[i] = ui -> editPolylinex5 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney5 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 6)
+        {
+            polylineDimensions[i] = ui -> editPolylinex6 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney6 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 7)
+        {
+            polylineDimensions[i] = ui -> editPolylinex7 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney7 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 8)
+        {
+            polylineDimensions[i] = ui -> editPolylinex8 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney8 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints >= 9)
+        {
+            polylineDimensions[i] = ui -> editPolylinex9 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney9 -> value();
+            i += 2;
+        }
+        if(numPolylinePoints == 10)
+        {
+            polylineDimensions[i] = ui -> editPolylinex10 -> value();
+            polylineDimensions[i+1] = ui -> editPolyliney10 -> value();
+        }
 
-    pen.setColor(QColor(ui -> editPolylinePenColor->currentText()));
-    pen.setWidth(ui -> editPolylinePenWidth -> value());
-    pen.setStyle(convertToPenStyle((ui -> editPolylinePenStyle -> currentText()).toStdString()));
-    pen.setCapStyle(convertToPenCapStyle((ui -> editPolylineCapStyle -> currentText()).toStdString()));
-    pen.setJoinStyle(convertToPenJoinStyle((ui -> editPolylineJoinStyle -> currentText()).toStdString()));
+        dim::specs *dims = polylineDimensions;
+        QPen pen;
+        int shapeId;
 
-    shapes.editShape(shapeId, numPolylineSpecs, dims, pen);
+        shapeId = (ui->editShapeID->currentText()).toInt();
 
-    QMessageBox::information(this, "Edit Successful", "Polyline Updated\nChanges are now visible", QMessageBox::Ok);
-    setCurrentShapeInfo();
+        pen.setColor(QColor(ui -> editPolylinePenColor->currentText()));
+        pen.setWidth(ui -> editPolylinePenWidth -> value());
+        pen.setStyle(convertToPenStyle((ui -> editPolylinePenStyle -> currentText()).toStdString()));
+        pen.setCapStyle(convertToPenCapStyle((ui -> editPolylineCapStyle -> currentText()).toStdString()));
+        pen.setJoinStyle(convertToPenJoinStyle((ui -> editPolylineJoinStyle -> currentText()).toStdString()));
+
+        allShapes.editShape(shapeId, numPolylineSpecs, dims, pen);
+
+        QMessageBox::information(this, "Edit Successful", "Polyline Updated\nChanges are now visible", QMessageBox::Ok);
+        setCurrentShapeInfo();
+    }
+    catch(int)
+    {
+        QMessageBox::warning(this, "Invalid Number of Points", "Please choose a valid number of points (between 1 and 10)", QMessageBox::Ok);
+        ui->editPolylineNumPoints->setCurrentIndex(0);
+    }
 }
 
 void MainWindow::on_editPolylineCancel_clicked()
@@ -1135,6 +1326,7 @@ void MainWindow::on_editPolylineCancel_clicked()
 void MainWindow::on_polygonSave_clicked()
 {
     int numPolygonPoints = ui -> addPolygonNumPoints -> currentIndex();
+
     int numPolygonSpecs = numPolygonPoints * 2;
     int i{0};
     dim::specs polygonDimensions[numPolygonSpecs];
@@ -1201,7 +1393,7 @@ void MainWindow::on_polygonSave_clicked()
 
     dim::specs *dims = polygonDimensions;
 
-    Shape* p_Shape = new class::Polygon(shapes.incrementShapeCount(), SHAPES_LIST[POLYGON], numPolygonSpecs, dims);
+    Shape* p_Shape = new class::Polygon(allShapes.incrementShapeCount(), SHAPES_LIST[POLYGON], numPolygonSpecs, dims);
     QPen pen;
     QBrush brush;
 
@@ -1216,7 +1408,7 @@ void MainWindow::on_polygonSave_clicked()
 
     p_Shape -> setPen(pen);
     p_Shape -> setBrush(brush);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Polygon Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddPolygon();
@@ -1229,92 +1421,105 @@ void MainWindow::on_polygonCancel_clicked()
 
 void MainWindow::on_editPolygonSave_clicked()
 {
-    int numPolygonPoints = ui -> editPolygonNumPoints -> currentIndex();
-    int numPolygonSpecs = numPolygonPoints * 2;
-    int i{0};
-    dim::specs polygonDimensions[numPolygonSpecs];
+    try
+    {
+        int numPolygonPoints = ui -> editPolygonNumPoints -> currentIndex();
 
-    if(numPolygonPoints >= 1)
-    {
-        polygonDimensions[i] = ui -> editPolygonx1 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony1 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 2)
-    {
-        polygonDimensions[i] = ui -> editPolygonx2 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony2 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 3)
-    {
-        polygonDimensions[i] = ui -> editPolygonx3 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony3 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 4)
-    {
-        polygonDimensions[i] = ui -> editPolygonx4 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony4 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints == 5)
-    {
-        polygonDimensions[i] = ui -> editPolygonx5 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony5 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 6)
-    {
-        polygonDimensions[i] = ui -> editPolygonx6 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony6 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 7)
-    {
-        polygonDimensions[i] = ui -> editPolygonx7 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony7 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 8)
-    {
-        polygonDimensions[i] = ui -> editPolygonx8 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony8 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints >= 9)
-    {
-        polygonDimensions[i] = ui -> editPolygonx9 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony9 -> value();
-        i += 2;
-    }
-    if(numPolygonPoints == 10)
-    {
-        polygonDimensions[i] = ui -> editPolygonx10 -> value();
-        polygonDimensions[i+1] = ui -> editPolygony10 -> value();
-    }
+        if(numPolygonPoints == 0)
+        {
+            throw(1);
+        }
 
-    dim::specs *dims = polygonDimensions;
-    int shapeId;
-    QPen pen;
-    QBrush brush;
+        int numPolygonSpecs = numPolygonPoints * 2;
+        int i{0};
+        dim::specs polygonDimensions[numPolygonSpecs];
 
-    shapeId = (ui->editShapeID->currentText()).toInt();
+        if(numPolygonPoints >= 1)
+        {
+            polygonDimensions[i] = ui -> editPolygonx1 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony1 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 2)
+        {
+            polygonDimensions[i] = ui -> editPolygonx2 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony2 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 3)
+        {
+            polygonDimensions[i] = ui -> editPolygonx3 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony3 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 4)
+        {
+            polygonDimensions[i] = ui -> editPolygonx4 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony4 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints == 5)
+        {
+            polygonDimensions[i] = ui -> editPolygonx5 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony5 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 6)
+        {
+            polygonDimensions[i] = ui -> editPolygonx6 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony6 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 7)
+        {
+            polygonDimensions[i] = ui -> editPolygonx7 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony7 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 8)
+        {
+            polygonDimensions[i] = ui -> editPolygonx8 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony8 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints >= 9)
+        {
+            polygonDimensions[i] = ui -> editPolygonx9 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony9 -> value();
+            i += 2;
+        }
+        if(numPolygonPoints == 10)
+        {
+            polygonDimensions[i] = ui -> editPolygonx10 -> value();
+            polygonDimensions[i+1] = ui -> editPolygony10 -> value();
+        }
 
-    pen.setColor(QColor(ui -> editPolygonPenColor->currentText()));
-    pen.setWidth(ui -> editPolygonPenWidth -> value());
-    pen.setStyle(convertToPenStyle((ui -> editPolygonPenStyle -> currentText()).toStdString()));
-    pen.setCapStyle(convertToPenCapStyle((ui -> editPolygonCapStyle -> currentText()).toStdString()));
-    pen.setJoinStyle(convertToPenJoinStyle((ui -> editPolygonJoinStyle -> currentText()).toStdString()));
+        dim::specs *dims = polygonDimensions;
+        int shapeId;
+        QPen pen;
+        QBrush brush;
 
-    brush.setColor(QColor(ui -> editPolygonBrushColor -> currentText()));
-    brush.setStyle(convertToBrushStyle((ui -> editPolygonBrushStyle -> currentText().toStdString())));
+        shapeId = (ui->editShapeID->currentText()).toInt();
 
-    shapes.editShape(shapeId, numPolygonSpecs, dims, pen, brush);
+        pen.setColor(QColor(ui -> editPolygonPenColor->currentText()));
+        pen.setWidth(ui -> editPolygonPenWidth -> value());
+        pen.setStyle(convertToPenStyle((ui -> editPolygonPenStyle -> currentText()).toStdString()));
+        pen.setCapStyle(convertToPenCapStyle((ui -> editPolygonCapStyle -> currentText()).toStdString()));
+        pen.setJoinStyle(convertToPenJoinStyle((ui -> editPolygonJoinStyle -> currentText()).toStdString()));
 
-    QMessageBox::information(this, "Edit Successful", "Polygon Updated\nChanges are now visible", QMessageBox::Ok);
+        brush.setColor(QColor(ui -> editPolygonBrushColor -> currentText()));
+        brush.setStyle(convertToBrushStyle((ui -> editPolygonBrushStyle -> currentText().toStdString())));
 
-    setCurrentShapeInfo();
+        allShapes.editShape(shapeId, numPolygonSpecs, dims, pen, brush);
+
+        QMessageBox::information(this, "Edit Successful", "Polygon Updated\nChanges are now visible", QMessageBox::Ok);
+        setCurrentShapeInfo();
+    }
+    catch(int)
+    {
+        QMessageBox::warning(this, "Invalid Number of Points", "Please choose a valid number of points (between 1 and 10)", QMessageBox::Ok);
+        ui->editPolygonNumPoints->setCurrentIndex(0);
+    }
 }
 
 void MainWindow::on_editPolygonCancel_clicked()
@@ -1332,7 +1537,7 @@ void MainWindow::on_rectangleSave_clicked()
 
     dim::specs *dims = rectangleDimensions;
 
-    Shape* p_Shape = new class::Rectangle(shapes.incrementShapeCount(), SHAPES_LIST[RECTANGLE], NUM_RECTANGLE_SPECS, dims);
+    Shape* p_Shape = new class::Rectangle(allShapes.incrementShapeCount(), SHAPES_LIST[RECTANGLE], NUM_RECTANGLE_SPECS, dims);
     QPen pen;
     QBrush brush;
 
@@ -1347,7 +1552,7 @@ void MainWindow::on_rectangleSave_clicked()
 
     p_Shape -> setPen(pen);
     p_Shape -> setBrush(brush);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Rectangle Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddRectangle();
@@ -1382,7 +1587,7 @@ void MainWindow::on_editRectangleSave_clicked()
     brush.setColor(QColor(ui -> editRectangleBrushColor -> currentText()));
     brush.setStyle(convertToBrushStyle((ui -> editRectangleBrushStyle -> currentText().toStdString())));
 
-    shapes.editShape(shapeId, NUM_RECTANGLE_SPECS, dims, pen, brush);
+    allShapes.editShape(shapeId, NUM_RECTANGLE_SPECS, dims, pen, brush);
     QMessageBox::information(this, "Edit Successful", "Rectangle Updated\nChanges are now visible", QMessageBox::Ok);
 
     setCurrentShapeInfo();
@@ -1402,7 +1607,7 @@ void MainWindow::on_squareSave_clicked()
 
     dim::specs *dims = squareDimensions;
 
-    Shape* p_Shape = new class::Square(shapes.incrementShapeCount(), SHAPES_LIST[SQUARE], NUM_SQUARE_SPECS, dims);
+    Shape* p_Shape = new class::Square(allShapes.incrementShapeCount(), SHAPES_LIST[SQUARE], NUM_SQUARE_SPECS, dims);
     QPen pen;
     QBrush brush;
 
@@ -1417,7 +1622,7 @@ void MainWindow::on_squareSave_clicked()
 
     p_Shape -> setPen(pen);
     p_Shape -> setBrush(brush);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Square Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddSquare();
@@ -1451,7 +1656,7 @@ void MainWindow::on_editSquareSave_clicked()
     brush.setColor(QColor(ui -> editSquareBrushColor -> currentText()));
     brush.setStyle(convertToBrushStyle((ui -> editSquareBrushStyle -> currentText().toStdString())));
 
-    shapes.editShape(shapeId, NUM_SQUARE_SPECS, dims, pen, brush);
+    allShapes.editShape(shapeId, NUM_SQUARE_SPECS, dims, pen, brush);
 
     QMessageBox::information(this, "Edit Successful", "Square Updated\nChanges are now visible", QMessageBox::Ok);
     setCurrentShapeInfo();
@@ -1472,7 +1677,7 @@ void MainWindow::on_ellipseSave_clicked()
 
     dim::specs *dims = ellipseDimensions;
 
-    Shape* p_Shape = new class::Ellipse(shapes.incrementShapeCount(), SHAPES_LIST[ELLIPSE], NUM_ELLIPSE_SPECS, dims);
+    Shape* p_Shape = new class::Ellipse(allShapes.incrementShapeCount(), SHAPES_LIST[ELLIPSE], NUM_ELLIPSE_SPECS, dims);
     QPen pen;
     QBrush brush;
 
@@ -1487,7 +1692,7 @@ void MainWindow::on_ellipseSave_clicked()
 
     p_Shape -> setPen(pen);
     p_Shape -> setBrush(brush);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Ellipse Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddEllipse();
@@ -1523,7 +1728,7 @@ void MainWindow::on_editEllipseSave_clicked()
     brush.setColor(QColor(ui -> editEllipseBrushColor -> currentText()));
     brush.setStyle(convertToBrushStyle((ui -> editEllipseBrushStyle -> currentText().toStdString())));
 
-    shapes.editShape(shapeId, NUM_ELLIPSE_SPECS, dims, pen, brush);
+    allShapes.editShape(shapeId, NUM_ELLIPSE_SPECS, dims, pen, brush);
 
     QMessageBox::information(this, "Edit Successful", "Ellipse Updated\nChanges are now visible", QMessageBox::Ok);
     setCurrentShapeInfo();
@@ -1543,7 +1748,7 @@ void MainWindow::on_circleSave_clicked()
 
     dim::specs *dims = circleDimensions;
 
-    Shape* p_Shape = new class::Circle(shapes.incrementShapeCount(), SHAPES_LIST[CIRCLE], NUM_CIRCLE_SPECS, dims);
+    Shape* p_Shape = new class::Circle(allShapes.incrementShapeCount(), SHAPES_LIST[CIRCLE], NUM_CIRCLE_SPECS, dims);
     QPen pen;
     QBrush brush;
 
@@ -1558,7 +1763,7 @@ void MainWindow::on_circleSave_clicked()
 
     p_Shape -> setPen(pen);
     p_Shape -> setBrush(brush);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Circle Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddCircle();
@@ -1593,7 +1798,7 @@ void MainWindow::on_editCircleSave_clicked()
     brush.setColor(QColor(ui -> editCircleBrushColor -> currentText()));
     brush.setStyle(convertToBrushStyle((ui -> editCircleBrushStyle -> currentText().toStdString())));
 
-    shapes.editShape(shapeId, NUM_CIRCLE_SPECS, dims, pen, brush);
+    allShapes.editShape(shapeId, NUM_CIRCLE_SPECS, dims, pen, brush);
 
     QMessageBox::information(this, "Edit Successful", "Circle Updated\nChanges are now visible", QMessageBox::Ok);
     setCurrentShapeInfo();
@@ -1626,10 +1831,10 @@ void MainWindow::on_textSave_clicked()
     font.setWeight(convertToQFontWeight((ui -> addTextFontWeight -> currentText()).toStdString()));
     font.setStyle(convertToQFontStyle((ui -> addTextFontStyle -> currentText()).toStdString()));
 
-    Shape* p_Shape = new class::Text(shapes.incrementShapeCount(), SHAPES_LIST[TEXT], NUM_TEXT_SPECS, dims, font, newText, alignFlag);
+    Shape* p_Shape = new class::Text(allShapes.incrementShapeCount(), SHAPES_LIST[TEXT], NUM_TEXT_SPECS, dims, font, newText, alignFlag);
 
     p_Shape -> setPen(pen);
-    shapes.newShape(p_Shape);
+    allShapes.newShape(p_Shape);
 
     QMessageBox::information(this, "Save Successful", "New Text Added\nClick Update to View Changes", QMessageBox::Ok);
     clearAddText();
@@ -1665,7 +1870,7 @@ void MainWindow::on_editTextSave_clicked()
     font.setWeight(convertToQFontWeight((ui -> editTextFontWeight -> currentText()).toStdString()));
     font.setStyle(convertToQFontStyle((ui -> editTextFontStyle -> currentText()).toStdString()));
 
-    shapes.editShape(shapeId, NUM_TEXT_SPECS, dims, pen, font, alignFlag, newText);
+    allShapes.editShape(shapeId, NUM_TEXT_SPECS, dims, pen, font, alignFlag, newText);
 
     QMessageBox::information(this, "Edit Successful", "Text Updated\nChanges are now visible", QMessageBox::Ok);
     setCurrentShapeInfo();
@@ -1678,14 +1883,14 @@ void MainWindow::on_editTextCancel_clicked()
 
 void MainWindow::on_updateButton_clicked()
 {
-    ui -> renderArea -> getShapes(shapes.getVector());
+    ui -> renderArea -> getShapes(allShapes.getVector());
     ui -> editShapeID -> clear();
     ui -> deleteShapeID -> clear();
     ui -> editShapeID -> addItems(set_getShapeIds());
     ui -> deleteShapeID -> addItems(set_getShapeIds());
     updateShapeTables();
 
-    for(Shape *it : shapes.getVector())
+    for(Shape *it : allShapes.getVector())
     {
         cout << it -> print();
         cout << endl;
@@ -1957,7 +2162,6 @@ void MainWindow::on_addPolygonNumPoints_currentIndexChanged(int index)
 void MainWindow::on_tabs_currentChanged(int index)
 {
     clearAdd();
-    clearEdit();
 
     if(index == 0)
         ui -> adminAdd -> show();
@@ -1991,7 +2195,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         setCurrentShapeInfo();
     }
 
-    if(shapes.findShape((arg1).toInt()) == "Line"){
+    if(allShapes.findShape((arg1).toInt()) == "Line"){
         ui -> editLine -> show();
         ui -> editPolygon -> hide();
         ui -> editPolyline -> hide();
@@ -2000,7 +2204,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editEllipse -> hide();
         ui -> editCircle -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Polyline"){
+    else if(allShapes.findShape((arg1).toInt()) == "Polyline"){
         ui -> editPolyline -> show();
         disableEditPolylineSpinBoxes();
         ui -> editPolygon -> hide();
@@ -2010,7 +2214,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editEllipse -> hide();
         ui -> editCircle -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Polygon"){
+    else if(allShapes.findShape((arg1).toInt()) == "Polygon"){
         ui -> editPolygon -> show();
         disableEditPolygonSpinBoxes();
         ui -> editLine -> hide();
@@ -2020,7 +2224,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editEllipse -> hide();
         ui -> editCircle -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Rectangle"){
+    else if(allShapes.findShape((arg1).toInt()) == "Rectangle"){
         ui -> editRectangle -> show();
         ui -> editPolygon -> hide();
         ui -> editPolyline -> hide();
@@ -2029,7 +2233,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editEllipse -> hide();
         ui -> editCircle -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Square"){
+    else if(allShapes.findShape((arg1).toInt()) == "Square"){
         ui -> editSquare -> show();
         ui -> editLine -> hide();
         ui -> editPolyline -> hide();
@@ -2038,7 +2242,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editEllipse -> hide();
         ui -> editCircle -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Ellipse"){
+    else if(allShapes.findShape((arg1).toInt()) == "Ellipse"){
         ui -> editEllipse -> show();
         ui -> editPolygon -> hide();
         ui -> editPolyline -> hide();
@@ -2047,7 +2251,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editLine -> hide();
         ui -> editCircle -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Circle"){
+    else if(allShapes.findShape((arg1).toInt()) == "Circle"){
         ui -> editCircle -> show();
         ui -> editPolygon -> hide();
         ui -> editPolyline -> hide();
@@ -2056,7 +2260,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editEllipse -> hide();
         ui -> editLine -> hide();
         ui -> editText -> hide();}
-    else if(shapes.findShape((arg1).toInt()) == "Text"){
+    else if(allShapes.findShape((arg1).toInt()) == "Text"){
         ui -> editText -> show();
         ui -> editPolygon -> hide();
         ui -> editPolyline -> hide();
@@ -2335,9 +2539,12 @@ void MainWindow::on_moveUpdateButton_clicked()
     shift.setX(ui->xShiftBox->value());
     shift.setY(ui->yShiftBox->value());
 
-    shapes.moveShape(shapeId, shift);
+    allShapes.moveShape(shapeId, shift);
 
-    ui -> renderArea -> getShapes(shapes.getVector());
+    ui -> renderArea -> getShapes(allShapes.getVector());
+
+    ui->xShiftBox->setValue(0);
+    ui->yShiftBox->setValue(0);
 }
 
 void MainWindow::on_deleteShapeButton_clicked()
@@ -2347,14 +2554,18 @@ void MainWindow::on_deleteShapeButton_clicked()
     if(QMessageBox::warning(this, "Delete Confirmation", "Are you sure you want to delete this shape?", QMessageBox::Yes, QMessageBox::No)
        == QMessageBox::Yes)
     {
-        shapes.deleteShape(shapeId);
-        ui -> renderArea -> getShapes(shapes.getVector());
+        allShapes.deleteShape(shapeId);
+        ui -> renderArea -> getShapes(allShapes.getVector());
         ui -> editShapeID -> clear();
         ui -> deleteShapeID -> clear();
 
-        ui -> editShapeID -> addItems(set_getShapeIds());
-        setCurrentShapeInfo();
-        ui -> deleteShapeID -> addItems(set_getShapeIds());
+        if(allShapes.getShapeCount() != 0)
+        {
+            ui -> editShapeID -> addItems(set_getShapeIds());
+            setCurrentShapeInfo();
+            ui -> deleteShapeID -> addItems(set_getShapeIds());
+        }
+
         updateShapeTables();
 
     }
@@ -2385,7 +2596,7 @@ void MainWindow::on_actionSave_Progress_triggered()
     if(QMessageBox::question(this, "Save Current Progress", "Would you like to save all current shapes?", QMessageBox::Yes, QMessageBox::No)
        == QMessageBox::Yes)
     {
-        shapes.printAll();
+        allShapes.printAll();
     }
 }
 
@@ -2409,7 +2620,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     switch(ret)
     {
-    case QMessageBox::Save: shapes.printAll();
+    case QMessageBox::Save: allShapes.printAll();
                             event->accept();
         break;
     case QMessageBox::Discard: event->accept();

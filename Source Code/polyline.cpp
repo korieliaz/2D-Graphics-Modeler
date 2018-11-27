@@ -2,26 +2,21 @@
 #include "qtconversions.h"
 #include <sstream>
 
-Polyline::Polyline()
-{
-    points = new QPoint[numDimensions / 2];
-    for(int i = 0; i < numDimensions/2; ++i)
-    {
-        points[i].setX(0);
-        points[i].setY(0);
-    }
-}
-
 Polyline::Polyline(int shapeId, std::string shapeType, int numDimensions, dim::specs *shapeDimensions)
     :Shape(shapeId, shapeType, numDimensions, shapeDimensions)
 {
-    points = new QPoint[numDimensions / 2];
-    for(int i = 0; i < (numDimensions/2); ++i)
-    {
-        points[i].setX(0);
-        points[i].setY(0);
-    }
     setPosition();
+}
+
+void Polyline::setPosition()
+{
+    QPoint newPoint;
+    for(int i = 0; i < (numDimensions/2); i++)
+    {
+        newPoint.setX(shapeDimensions[(2*i)]);
+        newPoint.setY(shapeDimensions[(2*i)+1]);
+        points.push_back(newPoint);
+    }
 }
 
 dim::perimeter Polyline::calcPerimeter() const
@@ -47,38 +42,19 @@ dim::perimeter Polyline::calcPerimeter() const
 
 void Polyline::draw()
 {
-    QPoint staticPoints[numDimensions/2];
-
-    for(int i = 0; i < numDimensions/2; ++i)
-    {
-        staticPoints[i].setX(shapeDimensions[2*i]);
-        staticPoints[i].setY(shapeDimensions[2*i+1]);
-    }
-    points = staticPoints;
-
     painter.setPen(pen);
     painter.setBrush(brush);
-    painter.drawPolyline(staticPoints, numDimensions/2);
+    painter.drawPolyline(&points[0], numDimensions/2);
     painter.setPen(Qt::black);
     painter.drawText(points[0].x(), points[0].y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
 void Polyline::move(const QPoint &shift)
 {
-    for(QPoint* it = points ; it < points + (numDimensions / 2); ++it)
+    for(std::vector<QPoint>::iterator it = points.begin(); it != points.end(); ++it)
     {
         *it += shift;
     }
-}
-
-void Polyline::setPosition()
-{   
-    for(int i = 0; i < (numDimensions/2); i++)
-    {
-        points[i].setX(shapeDimensions[(2*i)]);
-        points[i].setY(shapeDimensions[(2*i)+1]);
-    }
-
 }
 
 std::string Polyline::print() const
