@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <property name="iconSize">
      <size>
@@ -43,9 +43,21 @@
       <item row="0" column="0">
        <widget class="QStackedWidget" name="addWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="userAdd">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>977</width>
+           <height>286</height>
+          </size>
+         </property>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
            <widget class="QTextBrowser" name="textBrowser">
@@ -54,7 +66,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.15094pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-style:italic;&quot;&gt;You must be logged in as an &lt;/span&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; font-style:italic;&quot;&gt;ADMIN &lt;/span&gt;&lt;span style=&quot; font-size:18pt; font-style:italic;&quot;&gt;to add a shape.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt;&quot;&gt;You must be logged in as an &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt; font-weight:600;&quot;&gt;ADMIN &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt;&quot;&gt;to add a shape.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -1200,7 +1212,7 @@ p, li { white-space: pre-wrap; }
            <widget class="QPushButton" name="polygonCancel">
             <property name="geometry">
              <rect>
-              <x>560</x>
+              <x>550</x>
               <y>220</y>
               <width>82</width>
               <height>25</height>
@@ -1587,7 +1599,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>350</x>
               <y>40</y>
-              <width>151</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -1792,7 +1804,7 @@ p, li { white-space: pre-wrap; }
            <widget class="QPushButton" name="polygonSave">
             <property name="geometry">
              <rect>
-              <x>470</x>
+              <x>460</x>
               <y>220</y>
               <width>82</width>
               <height>25</height>
@@ -2070,7 +2082,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>270</x>
               <y>10</y>
-              <width>161</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -2648,7 +2660,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>280</x>
               <y>10</y>
-              <width>141</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -3118,7 +3130,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>300</x>
               <y>10</y>
-              <width>151</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -3571,7 +3583,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>290</x>
               <y>10</y>
-              <width>151</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -4260,9 +4272,21 @@ p, li { white-space: pre-wrap; }
       <item row="0" column="0">
        <widget class="QStackedWidget" name="editWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="userEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>977</width>
+           <height>286</height>
+          </size>
+         </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
            <widget class="QTextBrowser" name="textBrowser_3">
@@ -4271,7 +4295,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.15094pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-style:italic;&quot;&gt;You must be logged in as an &lt;/span&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; font-style:italic;&quot;&gt;ADMIN &lt;/span&gt;&lt;span style=&quot; font-size:18pt; font-style:italic;&quot;&gt;to edit a shape.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt;&quot;&gt;You must be logged in as an &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt; font-weight:600;&quot;&gt;ADMIN &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt;&quot;&gt;to edit a shape.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -4297,7 +4321,7 @@ p, li { white-space: pre-wrap; }
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="editLine">
            <widget class="QPushButton" name="editLineCancel">
@@ -5791,7 +5815,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>360</x>
               <y>40</y>
-              <width>141</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -6849,7 +6873,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>280</x>
               <y>10</y>
-              <width>151</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -7319,7 +7343,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>300</x>
               <y>10</y>
-              <width>151</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -7772,7 +7796,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>250</x>
               <y>10</y>
-              <width>161</width>
+              <width>180</width>
               <height>161</height>
              </rect>
             </property>
@@ -8445,7 +8469,7 @@ p, li { white-space: pre-wrap; }
            <string>Edit</string>
           </property>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>52</x>
@@ -8504,25 +8528,43 @@ p, li { white-space: pre-wrap; }
       <item row="0" column="0">
        <widget class="QStackedWidget" name="deleteWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="userDelete">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>977</width>
+           <height>286</height>
+          </size>
+         </property>
          <layout class="QGridLayout" name="gridLayout_9">
           <item row="0" column="0">
            <widget class="QTextBrowser" name="textBrowser_4">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.15094pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-style:italic;&quot;&gt;You must be logged in as an &lt;/span&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; font-style:italic;&quot;&gt;ADMIN &lt;/span&gt;&lt;span style=&quot; font-size:18pt; font-style:italic;&quot;&gt;to delete a shape.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt;&quot;&gt;You must be logged in as an &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt; font-weight:600;&quot;&gt;ADMIN &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:18pt;&quot;&gt;to delete a shape.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
         <widget class="QWidget" name="adminDelete">
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -8581,6 +8623,12 @@ p, li { white-space: pre-wrap; }
          <layout class="QGridLayout" name="gridLayout_11">
           <item row="0" column="0">
            <widget class="QTableWidget" name="shapeIDTable">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
             <property name="verticalScrollBarPolicy">
              <enum>Qt::ScrollBarAlwaysOn</enum>
             </property>
@@ -8605,6 +8653,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="font">
               <font>
+               <pointsize>9</pointsize>
                <weight>75</weight>
                <italic>false</italic>
                <bold>true</bold>
@@ -8658,6 +8707,12 @@ p, li { white-space: pre-wrap; }
          <layout class="QGridLayout" name="gridLayout_12">
           <item row="0" column="0">
            <widget class="QTableWidget" name="perimeterTable">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
             <property name="verticalScrollBarPolicy">
              <enum>Qt::ScrollBarAlwaysOn</enum>
             </property>
@@ -8676,12 +8731,16 @@ p, li { white-space: pre-wrap; }
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>27</number>
+            </attribute>
             <column>
              <property name="text">
               <string>Shape Type</string>
              </property>
              <property name="font">
               <font>
+               <pointsize>9</pointsize>
                <weight>75</weight>
                <italic>false</italic>
                <bold>true</bold>
@@ -8694,6 +8753,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="font">
               <font>
+               <pointsize>9</pointsize>
                <weight>75</weight>
                <italic>false</italic>
                <bold>true</bold>
@@ -8706,6 +8766,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="font">
               <font>
+               <pointsize>9</pointsize>
                <weight>75</weight>
                <italic>false</italic>
                <bold>true</bold>
@@ -8723,6 +8784,12 @@ p, li { white-space: pre-wrap; }
          <layout class="QGridLayout" name="gridLayout_13">
           <item row="0" column="0">
            <widget class="QTableWidget" name="areaTable">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
             <property name="verticalScrollBarPolicy">
              <enum>Qt::ScrollBarAlwaysOn</enum>
             </property>
@@ -8747,6 +8814,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="font">
               <font>
+               <pointsize>9</pointsize>
                <weight>75</weight>
                <italic>false</italic>
                <bold>true</bold>
@@ -8835,21 +8903,21 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.15094pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.15094pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Developer&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;: Team Mittens USA&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;	Programmers&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;:	&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Trevor Dunham &lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;trevor_d@outlook.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Kori Eliaz &lt;/span&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;korieliaz@outlook.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Michael Sinclair &amp;lt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Brian &amp;lt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Mariah &amp;lt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Ali &amp;lt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Peter &amp;lt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;	Braden &amp;lt;&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:8.15094pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:14pt; font-weight:600;&quot;&gt;Developer&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:14pt;&quot;&gt;: Team Mittens USA&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-weight:600;&quot;&gt;	Programmers&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;:	&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Kori Eliaz &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;korieliaz@outlook.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Trevor Dunham &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;trevor_d@outlook.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Michael Sinclair &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;masinclair2@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Brian Ferguson &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;bferguson@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Mariah Harris &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;mariahh2017@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Ali Bingol &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;mythologyali@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Peter Win &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;peterzin@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Braden Wurlitzer &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;wurlitzerb@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::NoTextInteraction</set>
@@ -8857,6 +8925,105 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QGroupBox" name="loginWindow">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>300</y>
+      <width>311</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QPushButton" name="pushButton_Login">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>170</y>
+       <width>80</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Log In</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_25">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>40</y>
+       <width>251</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Century Gothic</family>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>2D Graphics Modeler LOG IN</string>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_Exit">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>170</y>
+       <width>80</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>81</y>
+       <width>271</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_15">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Username:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEdit_username"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_24">
+        <property name="text">
+         <string>Password:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEdit_password">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -8870,8 +9037,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <widget class="QMenu" name="menu2D_Graphics_Modeler">
     <property name="title">
-     <string>Login</string>
+     <string>User</string>
     </property>
+    <addaction name="action_LogOut"/>
    </widget>
    <widget class="QMenu" name="menuContact_Us">
     <property name="title">
@@ -8906,6 +9074,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionSave_Progress">
    <property name="text">
     <string>Save Progress</string>
+   </property>
+  </action>
+  <action name="action_LogOut">
+   <property name="text">
+    <string>Log Out</string>
    </property>
   </action>
  </widget>

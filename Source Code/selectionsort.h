@@ -2,7 +2,7 @@
 #define SELECTIONSORT_H
 
 #include "vector.h"
-#include "Shape.h"
+#include "shape.h"
 
 bool perimeterCompare(Shape* bestShape, Shape* currentShape);
 

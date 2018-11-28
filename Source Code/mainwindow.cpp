@@ -47,7 +47,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),        // Passes parent pointer to main window
     ui(new Ui::MainWindow),     // Creates new main window
-    allShapes(ui->renderArea)   // Passes canvas pointer to render shapes
+    allShapes(ui->renderArea),   // Passes canvas pointer to render shapes
+    accessLevel{-1}
 {
     // FILE IO - Populates allShape's shape vector from file backup
     allShapes.addShapesFromFile();
@@ -55,6 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui -> renderArea -> getShapes(allShapes.getVector());
     ui -> contactUs -> hide();
+    ui->menuBar->hide();
+    ui -> loginWindow -> show();
+    ui->tabs->hide();
+    ui->renderArea->hide();
 
     // SET TO USER LEVEL ACCESS FOR CONSTRUCTOR
     ui -> userAdd -> hide();
@@ -119,8 +124,8 @@ void MainWindow::sortIDTable()
     {
         ui->shapeIDTable->setItem(i, TYPE, new QTableWidgetItem(QString::fromStdString((sortedVector[i]->getType()))));
         ui->shapeIDTable->setItem(i, ID, new QTableWidgetItem(QString::number(sortedVector[i]->getID())));
-        ui->shapeIDTable->setItem(i, PERIMETER, new QTableWidgetItem(QString::number(sortedVector[i]->calcPerimeter())));
-        ui->shapeIDTable->setItem(i, AREA, new QTableWidgetItem(QString::number(sortedVector[i]->calcArea())));
+        ui->shapeIDTable->setItem(i, PERIMETER, new QTableWidgetItem(QString::number(int(sortedVector[i]->calcPerimeter()))));
+        ui->shapeIDTable->setItem(i, AREA, new QTableWidgetItem(QString::number(int(sortedVector[i]->calcArea()))));
     }
 }
 
@@ -139,7 +144,7 @@ void MainWindow::sortPerimeterTable()
     {
         ui->perimeterTable->setItem(i, TYPE, new QTableWidgetItem(QString::fromStdString((sortedVector[i]->getType()))));
         ui->perimeterTable->setItem(i, ID, new QTableWidgetItem(QString::number(sortedVector[i]->getID())));
-        ui->perimeterTable->setItem(i, PERIMETER, new QTableWidgetItem(QString::number(sortedVector[i]->calcPerimeter())));
+        ui->perimeterTable->setItem(i, PERIMETER, new QTableWidgetItem(QString::number(int(sortedVector[i]->calcPerimeter()))));
     }
 }
 
@@ -158,7 +163,7 @@ void MainWindow::sortAreaTable()
     {
         ui->areaTable->setItem(i, TYPE, new QTableWidgetItem(QString::fromStdString((sortedVector[i]->getType()))));
         ui->areaTable->setItem(i, ID, new QTableWidgetItem(QString::number(sortedVector[i]->getID())));
-        ui->areaTable->setItem(i, (AREA-1), new QTableWidgetItem(QString::number(sortedVector[i]->calcArea())));
+        ui->areaTable->setItem(i, (AREA-1), new QTableWidgetItem(QString::number(int(sortedVector[i]->calcArea()))));
     }
 }
 
@@ -2164,12 +2169,40 @@ void MainWindow::on_tabs_currentChanged(int index)
     clearAdd();
 
     if(index == 0)
-        ui -> adminAdd -> show();
+        if(accessLevel == ADMIN)
+        {
+            ui -> adminAdd -> show(); // if user access level is admin, unlock admin tabs
+            ui -> userAdd -> hide();
+        }
+        else
+        {
+            ui->userAdd -> show();    // else use basic user tabs
+            ui->adminAdd->hide();
+        }
     else if(index == 1)
-        ui -> adminEdit -> show();
+        if(accessLevel == ADMIN)
+        {
+            ui -> adminEdit -> show();
+            ui -> userEdit -> hide();
+        }
+        else
+        {
+            ui -> userEdit -> show();
+            ui -> adminEdit -> hide();
+        }
     else if(index == 2)
-        ui -> adminDelete -> show();
-
+    {
+        if(accessLevel == ADMIN)
+        {
+            ui -> adminDelete -> show();
+            ui -> userDelete -> hide();
+        }
+        else
+        {
+            ui -> userDelete -> show();
+            ui -> adminDelete -> hide();
+        }
+    }
 }
 
 void MainWindow::on_moveButton_clicked()
@@ -2612,21 +2645,102 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMessageBox exitBox;
     exitBox.setIcon(QMessageBox::Question);
     exitBox.setWindowTitle("Exit Confirmation");
-    exitBox.setText("The canvas has been modified.");
-    exitBox.setInformativeText("Do you want to save your changes?");
-    exitBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    exitBox.setDefaultButton(QMessageBox::Cancel);
-    int ret = exitBox.exec();
 
-    switch(ret)
+    if(accessLevel == USER)
     {
-    case QMessageBox::Save: allShapes.printAll();
-                            event->accept();
-        break;
-    case QMessageBox::Discard: event->accept();
-        break;
-    case QMessageBox::Cancel: event->ignore();
-                              exitBox.close();
-        break;
+        exitBox.setText("Are you sure you want to quit?");
+        exitBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+        exitBox.setDefaultButton(QMessageBox::Cancel);
+        int ret = exitBox.exec();
+        exitBox.close();
+
+        switch(ret)
+        {
+        case QMessageBox::Yes: QMessageBox::information(this, "Thank You", "Thank you for using the 2D Graphics Modeler!", QMessageBox::Close);
+            event->accept();
+            break;
+        case QMessageBox::Cancel: event->ignore();
+            break;
+        }
+    }
+    else
+    {
+        exitBox.setText("The canvas has been modified.");
+        exitBox.setInformativeText("Do you want to save your changes?");
+        exitBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        exitBox.setDefaultButton(QMessageBox::Cancel);
+        int ret = exitBox.exec();
+
+        switch(ret)
+        {
+        case QMessageBox::Save: allShapes.printAll();
+                                QMessageBox::information(this, "Thank You", "Thank you for using the 2D Graphics Modeler!", QMessageBox::Close);
+                                event->accept();
+            break;
+        case QMessageBox::Discard: QMessageBox::information(this, "Thank You", "Thank you for using the 2D Graphics Modeler!", QMessageBox::Close);
+                                   event->accept();
+            break;
+        case QMessageBox::Cancel: event->ignore();
+                                  exitBox.close();
+            break;
+        }
     }
 }
+
+void MainWindow::on_action_LogOut_triggered()
+{
+   ui->tabs->hide();
+   ui->renderArea->hide();
+   ui->loginWindow->show();
+   ui->menuBar->hide();
+}
+
+
+void MainWindow::on_pushButton_Login_clicked()
+{
+    QString username = ui->lineEdit_username->text();
+    QString password = ui->lineEdit_password->text();
+    const QString UN = "user";
+    const QString AD = "admin";
+
+    if(username == UN && password == UN)
+    {
+        QMessageBox::information(this, "Login Successful", "Logging in as a User");
+        ui->loginWindow->hide();                             // hides the login window
+        ui->tabs->show();
+        ui->tabs->setCurrentIndex(0);
+        ui->userAdd -> show();
+        ui->adminAdd->hide(); // overrides all the menus to show the appropriate access level
+        ui->userEdit->show();
+        ui->adminEdit->hide();
+        ui->userDelete->show();
+        ui->adminDelete->hide();
+        ui->renderArea->show();
+        accessLevel = USER;                    // sets the access level to normal user
+        ui->menuBar->show();
+    }
+    else if (username == AD && password == AD)
+    {
+        QMessageBox::information(this, "Login Successful", "Logging in as an Administrator");
+        ui->loginWindow->hide();                             // hides the login window
+        ui->tabs->show();
+        ui->tabs->setCurrentIndex(0);
+        ui->adminAdd->show();
+        ui->userAdd->hide();         // overrides all the menus to show the appropriate access level
+        ui->userEdit->hide();
+        ui->adminEdit->show();
+        ui->userDelete->hide();
+        ui->adminDelete->show();
+        ui->renderArea->show();
+        accessLevel = ADMIN;                    // sets the access level to administrator
+        ui->menuBar->show();
+    }
+    else
+    {
+        QMessageBox::critical(this,"Invalid Entry", "Username and/or password are not correct.\nPlease try again.");
+    }
+
+    ui->lineEdit_username->clear();
+    ui->lineEdit_password->clear();
+}
+

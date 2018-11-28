@@ -126,8 +126,6 @@ private slots:
 
     void on_editButton_clicked();
 
-//    void on_editShapeID_currentIndexChanged(int index);
-
     void on_moveUpdateButton_clicked();
 
     void on_deleteShapeButton_clicked();
@@ -143,10 +141,17 @@ private slots:
 
     void on_exitContactUsWindow_clicked();
 
+    // Login
+    void on_action_LogOut_triggered();
+    void on_pushButton_Login_clicked();
+
 private:
+    const int ADMIN = 1;
+    const int USER = 0;
     Ui::MainWindow  *ui;
     AllShapes allShapes;
     enum column {TYPE, ID, PERIMETER, AREA};
+    int accessLevel;
 
 
 };
