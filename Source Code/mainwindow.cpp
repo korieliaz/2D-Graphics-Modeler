@@ -2744,3 +2744,8 @@ void MainWindow::on_pushButton_Login_clicked()
     ui->lineEdit_password->clear();
 }
 
+
+void MainWindow::on_pushButton_Exit_clicked()
+{
+    exit(0);
+}
