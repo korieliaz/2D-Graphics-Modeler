@@ -24,6 +24,7 @@ void Circle::draw()
 void Circle::move(const QPoint &shift)
 {
     position += shift;
+    setShapeDimensions(shift);
 }
 
 void Circle::setPosition()

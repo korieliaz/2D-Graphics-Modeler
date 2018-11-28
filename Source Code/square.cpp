@@ -12,6 +12,7 @@ void Square::draw()
 void Square::move(const QPoint &shift)
 {
     position += shift;
+    setShapeDimensions(shift);
 }
 
 void Square::setPosition()

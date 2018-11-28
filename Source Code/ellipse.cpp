@@ -25,6 +25,7 @@ void Ellipse::draw()
 void Ellipse::move(const QPoint &shift)
 {
     position += shift;
+    setShapeDimensions(shift);
 }
 
 void Ellipse::setPosition()

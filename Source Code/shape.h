@@ -14,6 +14,7 @@ const int MAX_TEXT_POINT = 50;
 namespace ShapeLabels
 {
     enum eShapes{LINE, POLYLINE, POLYGON, RECTANGLE, SQUARE, ELLIPSE, CIRCLE, TEXT};
+    enum Dimensions{X1, Y1};
     const int NUM_SHAPE_DIMENSIONS[NUM_STATIC_SHAPES]{4, 4, 3, 4, 3, 4};
     const std::string SHAPES_LIST[NUM_SHAPES]{"Line", "Polyline", "Polygon", "Rectangle", "Square", "Ellipse", "Circle", "Text"};
 }
@@ -117,6 +118,8 @@ public:
     std::string getText() {return text;}
 
     // Virtual Functions
+    // Set Shape Dimensions
+    virtual void setShapeDimensions(const QPoint &shift);
     // Print
     virtual std::string print() const;
 

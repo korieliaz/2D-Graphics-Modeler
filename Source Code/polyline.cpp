@@ -55,6 +55,17 @@ void Polyline::move(const QPoint &shift)
     {
         *it += shift;
     }
+
+    setShapeDimensions(shift);
+}
+
+void Polyline::setShapeDimensions(const QPoint &shift)
+{
+    for(int i = 0; i < numDimensions; i++)
+    {
+        shapeDimensions[2*i] += shift.x();
+        shapeDimensions[(2*i)+1] += shift.y();
+    }
 }
 
 std::string Polyline::print() const

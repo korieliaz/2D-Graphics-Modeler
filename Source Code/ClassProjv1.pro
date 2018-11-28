@@ -76,4 +76,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    shapes.txt
+    shapes.txt \
+    Team Logo v2.png
+
+RESOURCES += \
+    teamlogo.qrc

@@ -16,6 +16,12 @@ void Text::draw()
     painter.drawText(position.x() + shapeDimensions[int(Specifications::W)]/2, position.y() + shapeDimensions[int(Specifications::H)], 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
+void Text::move(const QPoint &shift)
+{
+    position += shift;
+    setShapeDimensions(shift);
+}
+
 void Text::setPosition()
 {
     position = {shapeDimensions[int(Specifications::X1)], shapeDimensions[int(Specifications::Y1)]};

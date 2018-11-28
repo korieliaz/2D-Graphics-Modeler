@@ -12,6 +12,7 @@ void Rectangle::draw()
 void Rectangle::move(const QPoint &shift)
 {
     position += shift;
+    setShapeDimensions(shift);
 }
 
 void Rectangle::setPosition()

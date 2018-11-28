@@ -28,7 +28,7 @@ public:
 
     void draw() override;
 
-    void move(const QPoint &shift) override {position += shift;}
+    void move(const QPoint &shift) override;
 
     void setPosition() override;
 

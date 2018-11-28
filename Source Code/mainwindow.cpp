@@ -2214,10 +2214,14 @@ void MainWindow::on_moveButton_clicked()
 
 void MainWindow::on_editButton_clicked()
 {
-    setCurrentShapeInfo();
+    if(allShapes.getShapeCount()!=0)
+    {
+        setCurrentShapeInfo();
+        ui -> editShapeSpecs -> show();
+    }
     ui -> xShiftBox -> setEnabled(false);
     ui -> yShiftBox -> setEnabled(false);
-    ui -> editShapeSpecs -> show();
+
 
 }
 
@@ -2744,8 +2748,3 @@ void MainWindow::on_pushButton_Login_clicked()
     ui->lineEdit_password->clear();
 }
 
-
-void MainWindow::on_pushButton_Exit_clicked()
-{
-    exit(0);
-}

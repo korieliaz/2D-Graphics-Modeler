@@ -23,6 +23,15 @@ void Line::move(const QPoint &shift)
 {
     point1 += shift;
     point2 += shift;
+    setShapeDimensions(shift);
+}
+
+void Line::setShapeDimensions(const QPoint &shift)
+{
+    shapeDimensions[int(Specifications::X1)] += shift.x();
+    shapeDimensions[int(Specifications::X2)] += shift.x();
+    shapeDimensions[int(Specifications::Y1)] += shift.y();
+    shapeDimensions[int(Specifications::Y2)] += shift.y();
 }
 
 void Line::setPosition()

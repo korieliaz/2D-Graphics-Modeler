@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -43,7 +43,7 @@
       <item row="0" column="0">
        <widget class="QStackedWidget" name="addWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="userAdd">
          <property name="sizePolicy">
@@ -61,6 +61,9 @@
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
            <widget class="QTextBrowser" name="textBrowser">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -73,6 +76,18 @@ p, li { white-space: pre-wrap; }
          </layout>
         </widget>
         <widget class="QWidget" name="adminAdd">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>977</width>
+           <height>286</height>
+          </size>
+         </property>
          <widget class="QLabel" name="addShapeLabel">
           <property name="geometry">
            <rect>
@@ -92,20 +107,26 @@ p, li { white-space: pre-wrap; }
             <x>200</x>
             <y>0</y>
             <width>1500</width>
-            <height>291</height>
+            <height>330</height>
            </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
-            <width>861</width>
-            <height>283</height>
+            <width>900</width>
+            <height>280</height>
            </size>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="addLine">
            <widget class="QPushButton" name="lineCancel">
@@ -1599,7 +1620,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>350</x>
               <y>40</y>
-              <width>180</width>
+              <width>141</width>
               <height>161</height>
              </rect>
             </property>
@@ -1819,7 +1840,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>510</x>
               <y>40</y>
-              <width>133</width>
+              <width>121</width>
               <height>81</height>
              </rect>
             </property>
@@ -2660,7 +2681,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>280</x>
               <y>10</y>
-              <width>180</width>
+              <width>151</width>
               <height>161</height>
              </rect>
             </property>
@@ -3130,7 +3151,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>300</x>
               <y>10</y>
-              <width>180</width>
+              <width>151</width>
               <height>161</height>
              </rect>
             </property>
@@ -3583,7 +3604,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>290</x>
               <y>10</y>
-              <width>180</width>
+              <width>151</width>
               <height>161</height>
              </rect>
             </property>
@@ -4272,7 +4293,7 @@ p, li { white-space: pre-wrap; }
       <item row="0" column="0">
        <widget class="QStackedWidget" name="editWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="userEdit">
          <property name="sizePolicy">
@@ -4290,6 +4311,9 @@ p, li { white-space: pre-wrap; }
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
            <widget class="QTextBrowser" name="textBrowser_3">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -4302,6 +4326,18 @@ p, li { white-space: pre-wrap; }
          </layout>
         </widget>
         <widget class="QWidget" name="adminEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>977</width>
+           <height>286</height>
+          </size>
+         </property>
          <widget class="QStackedWidget" name="editShapeSpecs">
           <property name="geometry">
            <rect>
@@ -4321,7 +4357,7 @@ p, li { white-space: pre-wrap; }
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="editLine">
            <widget class="QPushButton" name="editLineCancel">
@@ -5815,7 +5851,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>360</x>
               <y>40</y>
-              <width>180</width>
+              <width>141</width>
               <height>161</height>
              </rect>
             </property>
@@ -6873,7 +6909,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>280</x>
               <y>10</y>
-              <width>180</width>
+              <width>151</width>
               <height>161</height>
              </rect>
             </property>
@@ -7343,7 +7379,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>300</x>
               <y>10</y>
-              <width>180</width>
+              <width>151</width>
               <height>161</height>
              </rect>
             </property>
@@ -7796,7 +7832,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>250</x>
               <y>10</y>
-              <width>180</width>
+              <width>161</width>
               <height>161</height>
              </rect>
             </property>
@@ -8552,6 +8588,9 @@ p, li { white-space: pre-wrap; }
               <height>0</height>
              </size>
             </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
             <property name="html">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -8564,6 +8603,18 @@ p, li { white-space: pre-wrap; }
          </layout>
         </widget>
         <widget class="QWidget" name="adminDelete">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>977</width>
+           <height>286</height>
+          </size>
+         </property>
          <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
@@ -8879,37 +8930,53 @@ p, li { white-space: pre-wrap; }
       <x>160</x>
       <y>50</y>
       <width>961</width>
-      <height>451</height>
+      <height>541</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_14">
-     <item row="1" column="0">
-      <widget class="QPushButton" name="exitContactUsWindow">
-       <property name="text">
-        <string>Return to Shape Editor</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QTextBrowser" name="contactUsWindow">
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="html">
-        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <widget class="QPushButton" name="exitContactUsWindow">
+     <property name="geometry">
+      <rect>
+       <x>430</x>
+       <y>510</y>
+       <width>135</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Return to Shape Editor</string>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="contactUsWindow">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>961</width>
+       <height>501</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.15094pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:8.15094pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:14pt; font-weight:600;&quot;&gt;Developer&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:14pt;&quot;&gt;: Team Mittens USA&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:16pt; font-weight:600;&quot;&gt;Developer&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:16pt;&quot;&gt;: Team Mittens USA&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-weight:600;&quot;&gt;	Programmers&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;:	&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-weight:600;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:14pt; font-weight:600;&quot;&gt;Programmers&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:14pt;&quot;&gt;:&lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Kori Eliaz &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;korieliaz@outlook.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Trevor Dunham &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;trevor_d@outlook.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Michael Sinclair &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;masinclair2@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
@@ -8918,13 +8985,33 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Ali Bingol &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;mythologyali@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Peter Win &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;peterzin@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt;&quot;&gt;	Braden Wurlitzer &lt;/span&gt;&lt;span style=&quot; font-family:'Century Gothic'; font-size:12pt; font-style:italic;&quot;&gt;&amp;lt;wurlitzerb@gmail.com&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::NoTextInteraction</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::NoTextInteraction</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_26">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>100</y>
+       <width>441</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="teamlogo.qrc">:/Team Logo v2.png</pixmap>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="loginWindow">
     <property name="geometry">
@@ -9091,6 +9178,8 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="teamlogo.qrc"/>
+ </resources>
  <connections/>
 </ui>

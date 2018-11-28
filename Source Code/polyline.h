@@ -27,6 +27,8 @@ public:
 
     void move (const QPoint &shift) override;
 
+    void setShapeDimensions(const QPoint &shift) override;
+
     std::string print() const override;
 
 

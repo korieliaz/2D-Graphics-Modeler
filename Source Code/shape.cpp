@@ -24,6 +24,12 @@ void Shape::setBaseInfo(int shapeId, std::string shapeType, int numDimensions, d
     }
 }
 
+void Shape::setShapeDimensions(const QPoint &shift)
+{
+    shapeDimensions[ShapeLabels::X1] += shift.x();
+    shapeDimensions[ShapeLabels::Y1] += shift.y();
+}
+
 std::string Shape::print() const
 {
      std::ostringstream oss;
