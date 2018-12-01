@@ -84,6 +84,12 @@ void Polygon::setShapeDimensions(const QPoint &shift)
 void Polygon::setPosition()
 {
     QPoint newPoint;
+
+    if(!points.empty())
+    {
+        points.clear();
+    }
+
     for(int i = 0; i < (numDimensions/2); i++)
     {
         newPoint.setX(shapeDimensions[(2*i)]);

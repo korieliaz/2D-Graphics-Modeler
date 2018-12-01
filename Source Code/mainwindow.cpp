@@ -1226,14 +1226,16 @@ void MainWindow::on_polylineCancel_clicked()
 
 void MainWindow::on_editPolylineSave_clicked()
 {
+    const QString NO_VALUE = "--";
+
     try
     {
-        int numPolylinePoints = ui -> editPolylineNumPoints -> currentIndex();
-
-        if(numPolylinePoints == 0)
+        if(ui->editPolylineNumPoints->currentText()==NO_VALUE)
         {
             throw(1);
         }
+
+        int numPolylinePoints = (ui -> editPolylineNumPoints -> currentText().toInt());
 
         int numPolylineSpecs = numPolylinePoints * 2;
         int i{0};
@@ -1318,7 +1320,7 @@ void MainWindow::on_editPolylineSave_clicked()
     }
     catch(int)
     {
-        QMessageBox::warning(this, "Invalid Number of Points", "Please choose a valid number of points (between 1 and 10)", QMessageBox::Ok);
+        QMessageBox::warning(this, "Invalid Number of Points", "Please choose a valid number of points (between 2 and 10)", QMessageBox::Ok);
         ui->editPolylineNumPoints->setCurrentIndex(0);
     }
 }
@@ -1426,15 +1428,16 @@ void MainWindow::on_polygonCancel_clicked()
 
 void MainWindow::on_editPolygonSave_clicked()
 {
+    const QString NO_VALUE = "--";
+
     try
     {
-        int numPolygonPoints = ui -> editPolygonNumPoints -> currentIndex();
-
-        if(numPolygonPoints == 0)
+        if(ui->editPolylineNumPoints->currentText()==NO_VALUE)
         {
             throw(1);
         }
 
+        int numPolygonPoints = (ui -> editPolygonNumPoints -> currentText().toInt());
         int numPolygonSpecs = numPolygonPoints * 2;
         int i{0};
         dim::specs polygonDimensions[numPolygonSpecs];
@@ -1522,7 +1525,7 @@ void MainWindow::on_editPolygonSave_clicked()
     }
     catch(int)
     {
-        QMessageBox::warning(this, "Invalid Number of Points", "Please choose a valid number of points (between 1 and 10)", QMessageBox::Ok);
+        QMessageBox::warning(this, "Invalid Number of Points", "Please choose a valid number of points (between 3 and 10)", QMessageBox::Ok);
         ui->editPolygonNumPoints->setCurrentIndex(0);
     }
 }
@@ -2317,20 +2320,12 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
     case 0: break;
     case 1: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
-        break;
-    case 2: ui -> editPolygonx1 -> setEnabled(true);
-            ui -> editPolygony1 -> setEnabled(true);
-            ui -> editPolygonx2 -> setEnabled(true);
-            ui -> editPolygony2 -> setEnabled(true);
-        break;
-    case 3: ui -> editPolygonx1 -> setEnabled(true);
-            ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
             ui -> editPolygonx3 -> setEnabled(true);
             ui -> editPolygony3 -> setEnabled(true);
         break;
-    case 4: ui -> editPolygonx1 -> setEnabled(true);
+    case 2: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2339,7 +2334,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
             ui -> editPolygonx4 -> setEnabled(true);
             ui -> editPolygony4 -> setEnabled(true);
         break;
-    case 5: ui -> editPolygonx1 -> setEnabled(true);
+    case 3: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2350,7 +2345,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
             ui -> editPolygonx5 -> setEnabled(true);
             ui -> editPolygony5 -> setEnabled(true);
         break;
-    case 6: ui -> editPolygonx1 -> setEnabled(true);
+    case 4: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2363,7 +2358,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
             ui -> editPolygonx6 -> setEnabled(true);
             ui -> editPolygony6 -> setEnabled(true);
         break;
-    case 7: ui -> editPolygonx1 -> setEnabled(true);
+    case 5: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2378,7 +2373,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
             ui -> editPolygonx7 -> setEnabled(true);
             ui -> editPolygony7 -> setEnabled(true);
         break;
-    case 8: ui -> editPolygonx1 -> setEnabled(true);
+    case 6: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2395,7 +2390,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
             ui -> editPolygonx8 -> setEnabled(true);
             ui -> editPolygony8 -> setEnabled(true);
         break;
-    case 9: ui -> editPolygonx1 -> setEnabled(true);
+    case 7: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2414,7 +2409,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
             ui -> editPolygonx9 -> setEnabled(true);
             ui -> editPolygony9 -> setEnabled(true);
         break;
-    case 10: ui -> editPolygonx1 -> setEnabled(true);
+    case 8: ui -> editPolygonx1 -> setEnabled(true);
             ui -> editPolygony1 -> setEnabled(true);
             ui -> editPolygonx2 -> setEnabled(true);
             ui -> editPolygony2 -> setEnabled(true);
@@ -2447,20 +2442,17 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
     case 0: break;
     case 1: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
-        break;
-    case 2: ui -> editPolylinex1 -> setEnabled(true);
-            ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
         break;
-    case 3: ui -> editPolylinex1 -> setEnabled(true);
+    case 2: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
             ui -> editPolylinex3 -> setEnabled(true);
             ui -> editPolyliney3 -> setEnabled(true);
         break;
-    case 4: ui -> editPolylinex1 -> setEnabled(true);
+    case 3: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2469,7 +2461,7 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
             ui -> editPolylinex4 -> setEnabled(true);
             ui -> editPolyliney4 -> setEnabled(true);
         break;
-    case 5: ui -> editPolylinex1 -> setEnabled(true);
+    case 4: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2480,7 +2472,7 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
             ui -> editPolylinex5 -> setEnabled(true);
             ui -> editPolyliney5 -> setEnabled(true);
         break;
-    case 6: ui -> editPolylinex1 -> setEnabled(true);
+    case 5: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2493,7 +2485,7 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
             ui -> editPolylinex6 -> setEnabled(true);
             ui -> editPolyliney6 -> setEnabled(true);
         break;
-    case 7: ui -> editPolylinex1 -> setEnabled(true);
+    case 6: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2508,7 +2500,7 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
             ui -> editPolylinex7 -> setEnabled(true);
             ui -> editPolyliney7 -> setEnabled(true);
         break;
-    case 8: ui -> editPolylinex1 -> setEnabled(true);
+    case 7: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2525,7 +2517,7 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
             ui -> editPolylinex8 -> setEnabled(true);
             ui -> editPolyliney8 -> setEnabled(true);
         break;
-    case 9: ui -> editPolylinex1 -> setEnabled(true);
+    case 8: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2544,7 +2536,7 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
             ui -> editPolylinex9 -> setEnabled(true);
             ui -> editPolyliney9 -> setEnabled(true);
         break;
-    case 10: ui -> editPolylinex1 -> setEnabled(true);
+    case 9: ui -> editPolylinex1 -> setEnabled(true);
             ui -> editPolyliney1 -> setEnabled(true);
             ui -> editPolylinex2 -> setEnabled(true);
             ui -> editPolyliney2 -> setEnabled(true);
@@ -2650,7 +2642,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     exitBox.setIcon(QMessageBox::Question);
     exitBox.setWindowTitle("Exit Confirmation");
 
-    if(accessLevel == USER)
+    if(accessLevel == USER || accessLevel == NONE)
     {
         exitBox.setText("Are you sure you want to quit?");
         exitBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
@@ -2693,6 +2685,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::on_action_LogOut_triggered()
 {
+   accessLevel = NONE;
    ui->tabs->hide();
    ui->renderArea->hide();
    ui->loginWindow->show();
@@ -2748,3 +2741,9 @@ void MainWindow::on_pushButton_Login_clicked()
     ui->lineEdit_password->clear();
 }
 
+
+void MainWindow::on_pushButton_Exit_clicked()
+{
+    QMessageBox::information(this, "Thank You", "Thank you for using the 2D Graphics Modeler!", QMessageBox::Close);
+    qApp->quit();
+}

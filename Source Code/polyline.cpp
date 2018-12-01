@@ -10,6 +10,11 @@ Polyline::Polyline(int shapeId, std::string shapeType, int numDimensions, dim::s
 
 void Polyline::setPosition()
 {
+    if(!points.empty())
+    {
+        points.clear();
+    }
+
     QPoint newPoint;
     for(int i = 0; i < (numDimensions/2); i++)
     {

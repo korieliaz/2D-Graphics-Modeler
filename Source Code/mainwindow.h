@@ -145,9 +145,10 @@ private slots:
     void on_action_LogOut_triggered();
     void on_pushButton_Login_clicked();
 
+    void on_pushButton_Exit_clicked();
+
 private:
-    const int ADMIN = 1;
-    const int USER = 0;
+    enum accessLevels {USER, ADMIN, NONE};
     Ui::MainWindow  *ui;
     AllShapes allShapes;
     enum column {TYPE, ID, PERIMETER, AREA};
