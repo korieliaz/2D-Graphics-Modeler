@@ -2645,6 +2645,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
 //! Logs out the user and resets all forms and access levels.
 void MainWindow::on_action_LogOut_triggered()
 {
+   if(accessLevel == ADMIN)
+   {
+       on_actionSave_Progress_triggered();
+   }
+
    accessLevel = NONE;
    ui->tabs->hide();
    ui->renderArea->hide();
