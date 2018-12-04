@@ -1,15 +1,24 @@
+/*!
+ * \brief   Line CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "line.h"
 #include <sstream>
 #include "qtconversions.h"
 
-dim::perimeter Line::calcPerimeter() const
-{
-    return distance(*(shapeDimensions + int(Specifications::X1)),
-                    *(shapeDimensions + int(Specifications::X2)),
-                    *(shapeDimensions + int(Specifications::Y1)),
-                    *(shapeDimensions + int(Specifications::Y2)));
-}
-
+//! Sets the QPainter object to draw a line according to the Line object's specifications.
 void Line::draw()
 {
     painter.setPen(pen);
@@ -19,6 +28,7 @@ void Line::draw()
     painter.drawText(point1.x(), point1.y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
+//! Shifts the position of the line.
 void Line::move(const QPoint &shift)
 {
     point1 += shift;
@@ -26,6 +36,16 @@ void Line::move(const QPoint &shift)
     setShapeDimensions(shift);
 }
 
+//! Calculates and returns the length of the line.
+dim::perimeter Line::calcPerimeter() const
+{
+    return distance(*(shapeDimensions + int(Specifications::X1)),
+                    *(shapeDimensions + int(Specifications::X2)),
+                    *(shapeDimensions + int(Specifications::Y1)),
+                    *(shapeDimensions + int(Specifications::Y2)));
+}
+
+//! Sets the shape dimensions array to new values after the line is moved.
 void Line::setShapeDimensions(const QPoint &shift)
 {
     shapeDimensions[int(Specifications::X1)] += shift.x();
@@ -34,12 +54,15 @@ void Line::setShapeDimensions(const QPoint &shift)
     shapeDimensions[int(Specifications::Y2)] += shift.y();
 }
 
+//! Sets the position of the two points on the line.
 void Line::setPosition()
 {
     point1 = {shapeDimensions[int(Specifications::X1)], shapeDimensions[int(Specifications::Y1)]};
     point2 = {shapeDimensions[int(Specifications::X2)], shapeDimensions[int(Specifications::Y2)]};
 }
 
+//! Prints the line specifications as one string to be used in the AllShapes class.
+/*! \sa AllShapes::printAll() */
 std::string Line::print() const
 {
     using std::endl;

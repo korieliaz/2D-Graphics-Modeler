@@ -1,11 +1,40 @@
+/*!
+ * \brief   Shape CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "shape.h"
 #include "qtconversions.h"
 #include <sstream>
 using std::endl;
 
+//! Alternate constructor
+Shape::Shape(int shapeId, std::string shapeType, int numDimensions, dim::specs *shapeDimensions)
+    : shapeId{shapeId}, shapeType{shapeType}, numDimensions{numDimensions}
+{
+    this -> shapeDimensions = new dim::specs[numDimensions];
+
+    for(int i = 0; i < numDimensions; ++i)
+    {
+        this -> shapeDimensions[i] = shapeDimensions[i];
+    }
+}
+
+//! Sets shape information
 void Shape::setBaseInfo(int shapeId, std::string shapeType, int numDimensions, dim::specs* otherDimensions)
 {
-    // DELETES FORMER DATA IF IT HAS TO BE OVERRIDEN
+    /*! Deletes former data if it has to be overriden */
     if(this -> shapeDimensions != nullptr)
     {
         delete[] this -> shapeDimensions;
@@ -24,12 +53,14 @@ void Shape::setBaseInfo(int shapeId, std::string shapeType, int numDimensions, d
     }
 }
 
+/*! Sets shape dimensions in the shapeDimensions array after a shape has been moved */
 void Shape::setShapeDimensions(const QPoint &shift)
 {
     shapeDimensions[ShapeLabels::X1] += shift.x();
     shapeDimensions[ShapeLabels::Y1] += shift.y();
 }
 
+/*! Default print method for a shape */
 std::string Shape::print() const
 {
      std::ostringstream oss;

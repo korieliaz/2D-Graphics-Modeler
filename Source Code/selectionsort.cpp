@@ -1,20 +1,53 @@
+/*!
+ * \brief   SelectionSort CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "selectionsort.h"
 
+//! Compares the current largest perimeter to the perimeter of the current Shape in the vector.
 bool perimeterCompare(Shape* bestShape, Shape* currentShape)
 {
     return (bestShape -> calcPerimeter() > currentShape -> calcPerimeter());
 }
 
+//! Compares the current largest area to the area of the current Shape in the vector.
 bool areaCompare(Shape* bestShape, Shape* currentShape)
 {
     return (bestShape -> calcArea() > currentShape -> calcArea());
 }
 
+//! Compares the current largest ID to the ID of the current Shape in the vector.
 bool idCompare(Shape* bestShape, Shape* currentShape)
 {
+    /*! Throws an exception if two ID's are the same. */
+    try
+    {
+        if(*currentShape == *bestShape)
+        {
+            throw shapeException("\n***ERROR - TWO SHAPES CANNOT HAVE THE SAME ID***\n\n");
+        }
+    }
+    catch(shapeException idEx)
+    {
+        cout << idEx.what();
+    }
+
     return (*currentShape < *bestShape);
 }
 
+//! Performs a sort of the vector based on ID, perimeter, or area. */
 void selectionSort(myVector::vector<Shape*> &vector, bool(*compareFunction)(Shape*, Shape*))
 {
     int i_best{0};

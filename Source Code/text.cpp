@@ -1,7 +1,24 @@
+/*!
+ * \brief   Text CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "text.h"
 #include <sstream>
 #include <qtconversions.h>
 
+//! Sets the QPainter object to draw a text box according to the Text object's specifications.
 void Text::draw()
 {
     painter.setPen(pen);
@@ -16,17 +33,20 @@ void Text::draw()
     painter.drawText(position.x() + shapeDimensions[int(Specifications::W)]/2, position.y() + shapeDimensions[int(Specifications::H)], 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
+//! Shifts the position of the text box.
 void Text::move(const QPoint &shift)
 {
     position += shift;
     setShapeDimensions(shift);
 }
 
+//! Sets the position of the text box.
 void Text::setPosition()
 {
     position = {shapeDimensions[int(Specifications::X1)], shapeDimensions[int(Specifications::Y1)]};
 }
 
+//! Overrides the default print function for text specific information.
 std::string Text::print() const
 {
     using std::endl;

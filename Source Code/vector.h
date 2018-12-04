@@ -1,108 +1,172 @@
+/*!
+ * \brief   Custom Vector Header File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#include <algorithm> // std::copy
+//! Allows use of std::copy
+#include <algorithm>
 using std::copy;
 
+/*! \namespace <myVector>
+ * Wraps the entire custom vector in a custom namespace so as to differentiate it from the std::vector */
 namespace myVector
 {
 
+//! The class managing a custom vector.
+/*! This is a vector much like the stl vector container.
+ * NOTE: elem[n] is a vector component n for all n >= 0 AND n < size_v
+ * size_v = the number of items stored in the vector
+ * space = the available storage capacity of the vector where size_v <= space
+ * if size_v < space there is space for (space - size_v) items after elem[size_v - 1]
+ */
 template <class T>
 class vector
 {
-    /*
-    vector of doubles much like stl vector container
-
-    NOTE: elem[n] is vector component n for all n >= 0 AND n < size_v
-          size_v = the number of items stored in the vector
-          space = the available storage capacity of the vector where size_v <= space
-          if size_v < space there is space for (space - size_v) doubles after elem[size_v-1]
-    */
-
-    int size_v;   // the size
-    T *elem; // pointer to the elements (or 0)
-    int space;    // number of elements plus number of free slots
+    int size_v;   /*!< the size of the vector */
+    T *elem;      /*!< the pointer to the elements (or 0) */
+    int space;    /*!< the number of elements plus the number of free slots */
 
 public:
-    vector() : size_v{0}, elem{nullptr}, space{0} {} // default constructor
+    //! Default constructor
+    vector() : size_v{0}, elem{nullptr}, space{0} {}
 
-    explicit vector(int s) : size_v{s}, elem{new T[s]}, space{s} // alternate constructor
+    //! Alternate constructor
+    /*! Elements are initialized */
+    explicit vector(int s) : size_v{s}, elem{new T[s]}, space{s}
     {
         for (int i = 0; i < size_v; ++i)
-            elem[i] = 0; // elements are initialized
+            elem[i] = 0;
     }
 
-    vector(const vector &src) : size_v{src.size_v}, elem{new T[src.size_v]}, space{src.space} // copy constructor
+    //! Copy constructor
+    /*! Copies elements using the std::copy() algorithm
+     * \param src the vector to be copied into the invoking vector, passed by constant reference */
+    vector(const vector &src) : size_v{src.size_v}, elem{new T[src.size_v]}, space{src.space}
     {
-        copy(src.elem, src.elem + size_v, elem); // copy elements - std::copy() algorithm
+        copy(src.elem, src.elem + size_v, elem);
     }
 
-    vector &operator=(const vector &src) // copy assignment
+    //! Overloaded copy assignment operator
+    /*! \param src the vector to be assigned into the invoking vector, passed by constant reference */
+    vector &operator=(const vector &src)
     {
-        T *p = new T[src.size_v];       // allocate new space
-        copy(src.elem, src.elem + src.size_v, p); // copy elements - std::copy() algorithm
-        delete[] elem;                            // deallocate old space
-        elem = p;                                 // now we can reset elem
+        /*! \brief Allocates new space */
+        T *p = new T[src.size_v];
+
+        /*! \brief Copies elements using the std::copy() algorithm */
+        copy(src.elem, src.elem + src.size_v, p);
+
+        /*! \brief Deallocates old space */
+        delete[] elem;
+
+        /*! \brief Resets elem */
+        elem = p;
         size_v = src.size_v;
-        return *this;  // return a self-reference
+
+        /*! \brief Returns a self-reference */
+        return *this;
     }
 
+    //! Destructor
     ~vector() {
-        delete[] elem; // destructor
+        /*! \brief Frees dynamic data allocation */
+        delete[] elem;
     }
 
+    //! Overloaded subscript operator
     T &operator[](int n) {
-        return elem[n]; // access: return reference
+        /*! \brief Access: return reference */
+        return elem[n];
     }
 
+    //! Overloaded constant subscript operator
     const T &operator[](int n) const {
         return elem[n];
     }
 
+    //! Returns the size of the vector
     int size() const {
         return size_v;
     }
 
+    //! Returns the capacity of the vector
     int capacity() const {
         return space;
     }
 
-    void resize(int newsize) // growth
-    // make the vector have newsize elements
-    // initialize each new element with the default value 0.0
+    //! Resizes the vector
+    /*! Makes the vector have an amount of elements equal to the passed in value
+     * Initializes each new element with the default value 0
+     * \param newsize the amount of elements the resized vector should have
+     */
+    void resize(int newsize)
     {
         reserve(newsize);
+
+        /*! \brief Initializes new elements */
         for (int i = size_v; i < newsize; ++i)
-            elem[i] = 0; // initialize new elements
+            elem[i] = 0;
+
         size_v = newsize;
     }
 
+    //! Adds a new element to the vector
+    /*! Increases the vector size by one; initializes the new element with the passed in element
+     * \param d the element to be added to the vector
+     */
     void push_back(T d)
-    // increase vector size by one; initialize the new element with d
     {
+        /*! \brief Starts with space for 8 elements
+         * \brief If this is not enough space, gets more space.
+         */
         if (space == 0)
-            reserve(8);         // start with space for 8 elements
+            reserve(8);
         else if (size_v == space)
-            reserve(2 * space); // get more space
-        elem[size_v] = d;       // add d at end
-        ++size_v;               // increase the size (size_v is the number of elements)
+            reserve(2 * space);
+
+        /*! \brief Adds the passed in value to the vector after resizing it. */
+        elem[size_v] = d;
+
+        /*! \brief Increases the size (size_v is the number of elements) */
+        ++size_v;
     }
 
+    //! Reserves more space on the heap for the vector
+    /*! Never decreases allocation, just allocates new space
+     * \param newalloc the amount of space to be reserved on the heap */
     void reserve(int newalloc)
     {
-        // never decrease allocation
-        // allocate new space
         T *p = new T[newalloc];
+
+        /*! \brief Copies old elements */
         copy(elem, elem + size_v, p);
+
+        /*! \brief Deallocates old space */
         delete[] elem;
+
         elem = p;
-        // copy old elements
-        // deallocate old space
     }
 
+    /*! \note Defines iterators */
     using iterator = T *;
     using const_iterator = const T *;
 
+    //! Defines the iterator begin - points to the first element
+    //! Read/Write
     iterator begin() // points to first element
     {
         if (size_v == 0)
@@ -110,6 +174,8 @@ public:
         return &elem[0];
     }
 
+    //! Defines the constant iterator begin - points to the first element
+    //! Read Only
     const_iterator begin() const
     {
         if (size_v == 0)
@@ -117,13 +183,17 @@ public:
         return &elem[0];
     }
 
-    iterator end() // points to one beyond the last element
+    //! Defines the iterator end - points to one beyond the last element
+    //! Read/Write
+    iterator end()
     {
         if (size_v == 0)
             return nullptr;
         return &elem[size_v];
     }
 
+    //! Defines the constant iterator end - points to one beyond the last element
+    //! Read Only
     const_iterator end() const
     {
         if (size_v == 0)
@@ -131,51 +201,59 @@ public:
         return &elem[size_v];
     }
 
-    iterator insert(iterator p, const T &val) // insert a new element val before p
+    //! Inserts a new element before the location of the passed in iterator
+    /*! \param p the iterator location
+     * \param val the value to be inserted at p
+     */
+    iterator insert(iterator p, const T &val)
     {
-        // make sure we have space
-
+        /*! \brief Ensures there is space to add
+         * \brief If there is not enough space, resizes the vector
+         */
         if(space <= size_v)
         {
             resize(size_v + 1);
         }
 
-            T tempAr[space];
-            int count = 0;
+        T tempAr[space];
+        int count = 0;
 
-            // FOR LOOP TO GET THE VALUES FROM THE RIGHT SIDE OF P(INCLUDING P)
-            for(int i = p; i < size_v; ++i)
-            {
-                tempAr[count] = elem[i];
-                count++;
-            }
+        /*! \brief For loop to get the values from the right side of p (including p) */
+        for(int i = p; i < size_v; ++i)
+        {
+            tempAr[count] = elem[i];
+            count++;
+        }
 
-            // INSERTS NEW VALUE INTO P
-            elem[p] = val;
+        /*! \brief Inserts new value into p */
+        elem[p] = val;
 
-            count = 0;
-            // FOR LOOP ADDS THE OLD ELEMENTS AFTER P
-            for(int i = p + 1; i < size_v; ++i)
-            {
-                elem[i] = tempAr[count];
-                count++;
-            }
+        count = 0;
 
-        // the place to put value
-        // copy element one position to the right
-        // insert value
+        /*! \brief For loop adds the old elements after p */
+        for(int i = p + 1; i < size_v; ++i)
+        {
+            elem[i] = tempAr[count];
+            count++;
+        }
 
-        return nullptr; // temp remove & replace
+        return p;
     }
 
-    iterator erase(iterator p) // remove element pointed to by p
+    //! Erases a value at a specified location.
+    /*! \param p the iterator location */
+    iterator erase(iterator p)
     {
         if (p == end())
             return p;
+
+        /*! \brief Copies the element one position to the left for the entire vector*/
         for (iterator pos = p + 1; pos != end(); ++pos)
-            *(pos - 1) = *pos; // copy element one position to the left
-        //delete (end() - 1);
+            *(pos - 1) = *pos;
+
+        /*! \brief Decrements the size of the vector */
         --size_v;
+
         return p;
     }
 };

@@ -1,11 +1,43 @@
+/*!
+ * \brief   Polygon CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "polygon.h"
 
-Polygon::Polygon(int shapeId, std::string shapeType, int numDimensions, dim::specs *shapeDimensions)
-    :Shape(shapeId, shapeType, numDimensions, shapeDimensions)
+//! Sets the QPainter object to draw a polygon according to the Polygon object's specifications.
+void Polygon::draw()
 {
-    setPosition();
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    painter.drawPolygon(&points[0], numDimensions/2);
+    painter.setPen(Qt::black);
+    painter.drawText(points[0].x(), points[0].y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
+//! Shifts the position of the polygon.
+void Polygon::move(const QPoint &shift)
+{
+    for(std::vector<QPoint>::iterator it = points.begin(); it != points.end(); ++it)
+    {
+        *it += shift;
+    }
+
+    setShapeDimensions(shift);
+}
+
+//! Calculates and returns the perimeter of the polygon.
 dim::perimeter Polygon::calcPerimeter() const
 {
     int *x0{nullptr}, *x1{nullptr}, *y0{nullptr}, *y1{nullptr};
@@ -30,6 +62,7 @@ dim::perimeter Polygon::calcPerimeter() const
     return perimeter;
 }
 
+//! Calculates and returns the area of the polygon.
 dim::area Polygon::calcArea() const
 {
     int *x0{nullptr}, *x1{nullptr}, *y0{nullptr}, *y1{nullptr};
@@ -53,34 +86,7 @@ dim::area Polygon::calcArea() const
     return fabs(area / 2.0);
 }
 
-void Polygon::draw()
-{
-    painter.setPen(pen);
-    painter.setBrush(brush);
-    painter.drawPolygon(&points[0], numDimensions/2);
-    painter.setPen(Qt::black);
-    painter.drawText(points[0].x(), points[0].y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
-}
-
-void Polygon::move(const QPoint &shift)
-{
-    for(std::vector<QPoint>::iterator it = points.begin(); it != points.end(); ++it)
-    {
-        *it += shift;
-    }
-
-    setShapeDimensions(shift);
-}
-
-void Polygon::setShapeDimensions(const QPoint &shift)
-{
-    for(int i = 0; i < numDimensions; i++)
-    {
-        shapeDimensions[2*i] += shift.x();
-        shapeDimensions[(2*i)+1] += shift.y();
-    }
-}
-
+//! Sets the position of the points on the polygon.
 void Polygon::setPosition()
 {
     QPoint newPoint;
@@ -97,3 +103,15 @@ void Polygon::setPosition()
         points.push_back(newPoint);
     }
 }
+
+//! Sets the shape dimension array values to their new values after the polygon is moved.
+void Polygon::setShapeDimensions(const QPoint &shift)
+{
+    for(int i = 0; i < numDimensions; i++)
+    {
+        shapeDimensions[2*i] += shift.x();
+        shapeDimensions[(2*i)+1] += shift.y();
+    }
+}
+
+

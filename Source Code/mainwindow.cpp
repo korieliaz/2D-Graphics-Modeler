@@ -1,4 +1,22 @@
-/****************************************************************
+/*!
+ * \brief   MainWindow CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
+//! 2D Graphics Modeler
+/*!
+ ****************************************************************
  * 2-D GRAPHICS MODELER
  * ==============================================================
  * Models custom shapes according to user specifications
@@ -6,7 +24,8 @@
  * Functions:
  *  Add     - Add new shape
  *  Edit    - Change shape specifications
- *  Render  - Display all shapes
+ *  Draw    - Display all shapes
+ *  Move    - Shift a shape's location
  *  Delete  - Delete a shape
  * --------------------------------------------------------------
  * Shapes:
@@ -24,9 +43,8 @@
  *  Circle      - Circle with user designated radius
  *  Text        - Text with user defined text box and text
  *
- * ==============================================================
- *  Programmers:
- * **************************************************************/
+ ****************************************************************
+ */
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -35,20 +53,13 @@
 #include <QtWidgets>
 #include <QTableWidget>
 
-/****************************************************************
- * MAIN WINDOW CONSTRUCTOR
- * ==============================================================
- * Creates new main window, sets up for user input
- * --------------------------------------------------------------
- * IN
- * ------------------------
- *        parent : pointer to main window
- * **************************************************************/
+//! Constructor
+//! Sets up for front end performance.
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),        // Passes parent pointer to main window
-    ui(new Ui::MainWindow),     // Creates new main window
-    allShapes(ui->renderArea),   // Passes canvas pointer to render shapes
-    accessLevel{-1}
+    QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    allShapes(ui->renderArea),
+    accessLevel{NONE}
 {
     // FILE IO - Populates allShape's shape vector from file backup
     allShapes.addShapesFromFile();
@@ -79,26 +90,14 @@ MainWindow::MainWindow(QWidget *parent) :
     updateShapeTables();
 
 }
-/****************************************************************
- * DESTRUCTOR
- * ==============================================================
- * Deletes ui pointer
- * **************************************************************/
+
+//! Destructor
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-/****************************************************************
- * UPDATE SHAPE TABLES
- * ==============================================================
- * Updates shape tables, calls sort functions to sort
- * --------------------------------------------------------------
- * Sorts by:
- *  ID
- *  Area
- *  Perimeter
- * **************************************************************/
+//! Sorts and updates shape tables
 void MainWindow::updateShapeTables()
 {
     ui -> shapeIDTable->setRowCount(allShapes.getShapeCount());
@@ -109,11 +108,7 @@ void MainWindow::updateShapeTables()
     sortPerimeterTable();
 }
 
-/****************************************************************
- * Sort ID table
- * ==============================================================
- * Sorts vector by ID, sets values in ID-sorted table
- * **************************************************************/
+//! Sorts the Shape vector by ID and fills ID table
 void MainWindow::sortIDTable()
 {
     myVector::vector<Shape *> sortedVector = allShapes.getVector();
@@ -129,11 +124,7 @@ void MainWindow::sortIDTable()
     }
 }
 
-/******************************************************************
- * Sort Perimeter table
- * ================================================================
- * Sorts vector by perimeter, sets values in perimeter-sorted table
- * ****************************************************************/
+//! Sorts the Shape vector by perimeter and fills perimeter table
 void MainWindow::sortPerimeterTable()
 {
     myVector::vector<Shape *> sortedVector = allShapes.getVector();
@@ -148,11 +139,7 @@ void MainWindow::sortPerimeterTable()
     }
 }
 
-/******************************************************************
- * Sort Area table
- * ================================================================
- * Sorts vector by area, sets values in area-sorted table
- * ****************************************************************/
+//! Sorts the Shape vector by area and fills area table
 void MainWindow::sortAreaTable()
 {
     myVector::vector<Shape *> sortedVector = allShapes.getVector();
@@ -167,11 +154,7 @@ void MainWindow::sortAreaTable()
     }
 }
 
-/******************************************************************
- * DISABLE ADD TAB POLYLINE SPINBOXES
- * ================================================================
- * Disables polyline spinboxes until number of line points is set
- * ****************************************************************/
+//! Disables add polyline spin boxes until number of polyline points is set
 void MainWindow::disablePolylineSpinBoxes()
 {
     ui -> addPolylinex1 -> setEnabled(false);
@@ -196,11 +179,7 @@ void MainWindow::disablePolylineSpinBoxes()
     ui -> addPolyliney10 -> setEnabled(false);
 }
 
-/******************************************************************
- * DISABLE EDIT TAB POLYLINE SPINBOXES
- * ================================================================
- * Disables polyline spinboxes until number of line points is set
- * ****************************************************************/
+//! Disables edit polyline spin boxes until number of polyline points is set
 void MainWindow::disableEditPolylineSpinBoxes()
 {
     ui -> editPolylinex1 -> setEnabled(false);
@@ -225,11 +204,7 @@ void MainWindow::disableEditPolylineSpinBoxes()
     ui -> editPolyliney10 -> setEnabled(false);
 }
 
-/******************************************************************
- * DISABLE ADD TAB POLYGON SPINBOXES
- * ================================================================
- * Disables polygon spinboxes until number of line points is set
- * ****************************************************************/
+//! Disables add polygon spin boxes until number of polygon points is set
 void MainWindow::disablePolygonSpinBoxes()
 {
     ui -> addPolygonx1 -> setEnabled(false);
@@ -254,11 +229,7 @@ void MainWindow::disablePolygonSpinBoxes()
     ui -> addPolygony10 -> setEnabled(false);
 }
 
-/******************************************************************
- * DISABLE EDIT TAB POLYGON SPINBOXES
- * ================================================================
- * Disables polygon spinboxes until number of line points is set
- * ****************************************************************/
+//! Disables edit polygon spin boxes until number of polygon points is set
 void MainWindow::disableEditPolygonSpinBoxes()
 {
     ui -> editPolygonx1 -> setEnabled(false);
@@ -283,11 +254,7 @@ void MainWindow::disableEditPolygonSpinBoxes()
     ui -> editPolygony10 -> setEnabled(false);
 }
 
-/******************************************************************
- * RESET ADD LINE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add line form specifications
 void MainWindow::clearAddLine()
 {
     ui -> addLinex1 -> setValue(0);
@@ -302,11 +269,7 @@ void MainWindow::clearAddLine()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD POLYLINE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add polyline form specifications
 void MainWindow::clearAddPolyline()
 {
     ui -> addPolylineNumPoints -> setCurrentIndex(0);
@@ -338,11 +301,7 @@ void MainWindow::clearAddPolyline()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD POLYGON SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add polygon form specifications
 void MainWindow::clearAddPolygon()
 {
     ui -> addPolygonNumPoints -> setCurrentIndex(0);
@@ -376,11 +335,7 @@ void MainWindow::clearAddPolygon()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD RECTANGLE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add rectangle form specifications
 void MainWindow::clearAddRectangle()
 {
     ui -> addRectanglePenColor -> setCurrentIndex(0);
@@ -397,11 +352,7 @@ void MainWindow::clearAddRectangle()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD SQUARE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add square form specifications
 void MainWindow::clearAddSquare()
 {
     ui -> addSquarePenColor->setCurrentIndex(0);
@@ -418,11 +369,7 @@ void MainWindow::clearAddSquare()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD ELLIPSE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add ellipse form specifications
 void MainWindow::clearAddEllipse()
 {
     ui -> addEllipsePenColor->setCurrentIndex(0);
@@ -440,11 +387,7 @@ void MainWindow::clearAddEllipse()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD CIRCLE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add circle form specifications
 void MainWindow::clearAddCircle()
 {
     ui -> addCirclePenColor->setCurrentIndex(0);
@@ -461,11 +404,7 @@ void MainWindow::clearAddCircle()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ADD TEXT SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets add text form specifications
 void MainWindow::clearAddText()
 {
     ui -> addTextColor->setCurrentIndex(0);
@@ -482,11 +421,7 @@ void MainWindow::clearAddText()
     ui -> addShapeType -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET ALL ADD SPECIFICATIONS
- * ================================================================
- * Resets specifications for all forms
- * ****************************************************************/
+//! Resets specifications for all add forms
 void MainWindow::clearAdd()
 {
     clearAddLine();
@@ -499,11 +434,7 @@ void MainWindow::clearAdd()
     clearAddText();
 }
 
-/******************************************************************
- * RESET EDIT LINE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit line form specifications
 void MainWindow::clearEditLine()
 {
     ui -> editLinex1 -> setValue(0);
@@ -517,11 +448,7 @@ void MainWindow::clearEditLine()
     ui -> editLineJoinStyle -> setCurrentIndex(0);
 }
 
-/******************************************************************
- * RESET EDIT POLYLINE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit polyline form specifications
 void MainWindow::clearEditPolyline()
 {
     ui -> editPolylineNumPoints -> setCurrentIndex(0);
@@ -552,11 +479,7 @@ void MainWindow::clearEditPolyline()
     ui -> editPolyliney10 -> setValue(0);
 }
 
-/******************************************************************
- * RESET EDIT POLYGON SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit polygon form specifications
 void MainWindow::clearEditPolygon()
 {
     ui -> editPolygonNumPoints -> setCurrentIndex(0);
@@ -589,11 +512,7 @@ void MainWindow::clearEditPolygon()
     ui -> editPolygony10 -> setValue(0);
 }
 
-/******************************************************************
- * RESET EDIT RECTANGLE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit rectangle form specifications
 void MainWindow::clearEditRectangle()
 {
     ui -> editRectanglePenColor -> setCurrentIndex(0);
@@ -609,11 +528,7 @@ void MainWindow::clearEditRectangle()
     ui -> editRectangleh -> setValue(0);
 }
 
-/******************************************************************
- * RESET EDIT SQUARE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit square form specifications
 void MainWindow::clearEditSquare()
 {
     ui -> editSquarePenColor->setCurrentIndex(0);
@@ -629,11 +544,7 @@ void MainWindow::clearEditSquare()
     ui -> editSquarel -> setValue(0);
 }
 
-/******************************************************************
- * RESET EDIT ELLIPSE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit ellipse form specifications
 void MainWindow::clearEditEllipse()
 {
     ui -> editEllipsePenColor->setCurrentIndex(0);
@@ -650,11 +561,7 @@ void MainWindow::clearEditEllipse()
     ui -> editEllipseb -> setValue(0);
 }
 
-/******************************************************************
- * RESET EDIT CIRCLE SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit circle form specifications
 void MainWindow::clearEditCircle()
 {
     ui -> editCirclePenColor->setCurrentIndex(0);
@@ -670,11 +577,7 @@ void MainWindow::clearEditCircle()
     ui -> editCircler -> setValue(0);
 }
 
-/******************************************************************
- * RESET EDIT TEXT SPECIFICATIONS
- * ================================================================
- * Resets form specifications to zero or default combo box setting
- * ****************************************************************/
+//! Resets edit text form specifications
 void MainWindow::clearEditText()
 {
     ui -> editTextColor->setCurrentIndex(0);
@@ -690,11 +593,7 @@ void MainWindow::clearEditText()
     ui -> editTexttext -> clear();
 }
 
-/******************************************************************
- * RESET ALL EDIT SPECIFICATIONS
- * ================================================================
- * Resets specifications for all forms
- * ****************************************************************/
+//! Resets specifications for all edit forms
 void MainWindow::clearEdit()
 {
     clearEditLine();
@@ -707,11 +606,7 @@ void MainWindow::clearEdit()
     clearEditText();
 }
 
-/******************************************************************
- * LIST CURRENT SHAPE IDS
- * ================================================================
- * Returns QStringList of all current shape IDs
- * ****************************************************************/
+//! Returns a list of QStrings of all current shape ID's
 QStringList MainWindow::set_getShapeIds()
 {
     QStringList ids;
@@ -726,11 +621,7 @@ QStringList MainWindow::set_getShapeIds()
     return ids;
 }
 
-/******************************************************************
- * SET EDIT FIELDS WITH CURRENT SHAPE INFORMATION
- * ================================================================
- * Sets edit form fields with shape's current specifications
- * ****************************************************************/
+//! Sets edit form field with shape's current specifications
 void MainWindow::setCurrentShapeInfo()
 {
     int shapeId = (ui->editShapeID->currentText()).toInt();
@@ -982,6 +873,7 @@ void MainWindow::setCurrentShapeInfo()
     }
 }
 
+//! Shows the appropriate add shape form based on the user-selected shape type
 void MainWindow::on_addShapeType_currentIndexChanged(const QString &arg1)
 {
     if(arg1 == "Line"){
@@ -1069,6 +961,7 @@ void MainWindow::on_addShapeType_currentIndexChanged(const QString &arg1)
         ui -> addLine -> hide();}
 }
 
+//! Adds a new line to the shape vector
 void MainWindow::on_lineSave_clicked()
 {
     dim::specs lineDimensions[NUM_LINE_SPECS];
@@ -1097,11 +990,14 @@ void MainWindow::on_lineSave_clicked()
     clearAddLine();
 }
 
+//! Cancels addition of new line
+//! Resets add line form
 void MainWindow::on_lineCancel_clicked()
 {
     clearAddLine();
 }
 
+//! Edits a line in the shape vector
 void MainWindow::on_editLineSave_clicked()
 {
     dim::specs lineDimensions[NUM_LINE_SPECS];
@@ -1129,11 +1025,14 @@ void MainWindow::on_editLineSave_clicked()
     setCurrentShapeInfo();
 }
 
+//! Cancels edit of a line
+//! Resets edit line form
 void MainWindow::on_editLineCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds a polyline to the shape vector
 void MainWindow::on_polylineSave_clicked()
 {
     int numPolylinePoints = ui -> addPolylineNumPoints -> currentIndex();
@@ -1219,15 +1118,19 @@ void MainWindow::on_polylineSave_clicked()
     clearAddPolyline();
 }
 
+//! Cancels addition of a polyline to the shape vector
+//! Resets add polyline form
 void MainWindow::on_polylineCancel_clicked()
 {
     clearAddPolyline();
 }
 
+//! Edits a polyline in the vector
 void MainWindow::on_editPolylineSave_clicked()
 {
     const QString NO_VALUE = "--";
 
+    /*! Throws an exception and outputs an error message if user has not selected a number of points for the polyline */
     try
     {
         if(ui->editPolylineNumPoints->currentText()==NO_VALUE)
@@ -1325,11 +1228,14 @@ void MainWindow::on_editPolylineSave_clicked()
     }
 }
 
+//! Cancels edit of a polyline
+//! Resets edit polyline form
 void MainWindow::on_editPolylineCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds a polygon to the shape vector
 void MainWindow::on_polygonSave_clicked()
 {
     int numPolygonPoints = ui -> addPolygonNumPoints -> currentIndex();
@@ -1421,15 +1327,19 @@ void MainWindow::on_polygonSave_clicked()
     clearAddPolygon();
 }
 
+//! Cancels addition of a polygon
+//! Resets add polygon form
 void MainWindow::on_polygonCancel_clicked()
 {
     clearAddPolygon();
 }
 
+//! Edits a polygon in the vector
 void MainWindow::on_editPolygonSave_clicked()
 {
     const QString NO_VALUE = "--";
 
+    /*! Throws an exception and outputs an error message if user has not selected a number of points for the polygon */
     try
     {
         if(ui->editPolylineNumPoints->currentText()==NO_VALUE)
@@ -1530,11 +1440,14 @@ void MainWindow::on_editPolygonSave_clicked()
     }
 }
 
+//! Cancels edit of a polygon
+//! Resets edit polygon form
 void MainWindow::on_editPolygonCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds a rectangle to the shape vector
 void MainWindow::on_rectangleSave_clicked()
 {
     dim::specs rectangleDimensions[NUM_RECTANGLE_SPECS];
@@ -1566,11 +1479,14 @@ void MainWindow::on_rectangleSave_clicked()
     clearAddRectangle();
 }
 
+//! Cancels addition of a rectangle
+//! Resets add rectangle form
 void MainWindow::on_rectangleCancel_clicked()
 {
     clearAddRectangle();
 }
 
+//! Edits a rectangle in the shape vector
 void MainWindow::on_editRectangleSave_clicked()
 {
     dim::specs rectangleDimensions[NUM_RECTANGLE_SPECS];
@@ -1601,11 +1517,14 @@ void MainWindow::on_editRectangleSave_clicked()
     setCurrentShapeInfo();
 }
 
+//! Cancels edit of a rectangle
+//! Resets edit rectangle form
 void MainWindow::on_editRectangleCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds a square to the shape vector
 void MainWindow::on_squareSave_clicked()
 {
     dim::specs squareDimensions[NUM_SQUARE_SPECS];
@@ -1636,11 +1555,14 @@ void MainWindow::on_squareSave_clicked()
     clearAddSquare();
 }
 
+//! Cancels addition of a square
+//! Resets add square form
 void MainWindow::on_squareCancel_clicked()
 {
     clearAddSquare();
 }
 
+//! Edits a square in the shape vector
 void MainWindow::on_editSquareSave_clicked()
 {
     dim::specs squareDimensions[NUM_SQUARE_SPECS];
@@ -1670,11 +1592,14 @@ void MainWindow::on_editSquareSave_clicked()
     setCurrentShapeInfo();
 }
 
+//! Cancels edit of a square
+//! Resets edit square form
 void MainWindow::on_editSquareCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds an ellipse to the shape vector
 void MainWindow::on_ellipseSave_clicked()
 {
     dim::specs ellipseDimensions[NUM_ELLIPSE_SPECS];
@@ -1706,11 +1631,14 @@ void MainWindow::on_ellipseSave_clicked()
     clearAddEllipse();
 }
 
+//! Cancels addition of an ellipse
+//! Resets add ellipse form
 void MainWindow::on_ellipseCancel_clicked()
 {
     clearAddEllipse();
 }
 
+//! Edits an ellipse in the shape vector
 void MainWindow::on_editEllipseSave_clicked()
 {
     dim::specs ellipseDimensions[NUM_ELLIPSE_SPECS];
@@ -1742,11 +1670,14 @@ void MainWindow::on_editEllipseSave_clicked()
     setCurrentShapeInfo();
 }
 
+//! Cancels edit of an ellipse
+//! Resets edit ellipse form
 void MainWindow::on_editEllipseCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds a circle to the shape vector
 void MainWindow::on_circleSave_clicked()
 {
     dim::specs circleDimensions[NUM_CIRCLE_SPECS];
@@ -1777,11 +1708,14 @@ void MainWindow::on_circleSave_clicked()
     clearAddCircle();
 }
 
+//! Cancels addition of a circle
+//! Resets add circle form
 void MainWindow::on_circleCancel_clicked()
 {
     clearAddCircle();
 }
 
+//! Edits a circle in the shape vector
 void MainWindow::on_editCircleSave_clicked()
 {
     dim::specs circleDimensions[NUM_CIRCLE_SPECS];
@@ -1812,11 +1746,14 @@ void MainWindow::on_editCircleSave_clicked()
     setCurrentShapeInfo();
 }
 
+//! Cancels edit of a circle
+//! Resets edit circle form
 void MainWindow::on_editCircleCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Adds a text box to the shape vector
 void MainWindow::on_textSave_clicked()
 {
     dim::specs textDimensions[NUM_TEXT_SPECS];
@@ -1848,11 +1785,14 @@ void MainWindow::on_textSave_clicked()
     clearAddText();
 }
 
+//! Cancels addition of a text box
+//! Resets text form
 void MainWindow::on_textCancel_clicked()
 {
     clearAddText();
 }
 
+//! Edits a text item in the shape vector
 void MainWindow::on_editTextSave_clicked()
 {
     dim::specs textDimensions[NUM_TEXT_SPECS];
@@ -1884,11 +1824,14 @@ void MainWindow::on_editTextSave_clicked()
     setCurrentShapeInfo();
 }
 
+//! Cancels edit of a text box
+//! Resets edit text form
 void MainWindow::on_editTextCancel_clicked()
 {
     setCurrentShapeInfo();
 }
 
+//! Updates the canvas with the updated shape vector
 void MainWindow::on_updateButton_clicked()
 {
     ui -> renderArea -> getShapes(allShapes.getVector());
@@ -1898,15 +1841,10 @@ void MainWindow::on_updateButton_clicked()
     ui -> deleteShapeID -> addItems(set_getShapeIds());
     updateShapeTables();
 
-    for(Shape *it : allShapes.getVector())
-    {
-        cout << it -> print();
-        cout << endl;
-    }
-
     ui -> addShapeType -> clearEditText();
 }
 
+//! Enables/disables add polyline spin boxes depending on how many points the user chooses the polyline to have
 void MainWindow::on_addPolylineNumPoints_currentIndexChanged(int index)
 {
     disablePolylineSpinBoxes();
@@ -2037,6 +1975,7 @@ void MainWindow::on_addPolylineNumPoints_currentIndexChanged(int index)
     }
 }
 
+//! Enables/disables add polygon spin boxes depending on how many points the user chooses the polygon to have
 void MainWindow::on_addPolygonNumPoints_currentIndexChanged(int index)
 {
     disablePolygonSpinBoxes();
@@ -2167,11 +2106,16 @@ void MainWindow::on_addPolygonNumPoints_currentIndexChanged(int index)
     }
 }
 
+//! Changes which form is visible when the current tab is changed
+/*! User can have one of the following access levels: user or admin
+ * If the user is a basic user, they are not allowed to add, edit, or delete, so these tabs will show a fixed text box informing them that they do not have access.
+ * If the user is an admin, they are allowed to add, edit, and delete, so these forms become visible to them. */
 void MainWindow::on_tabs_currentChanged(int index)
 {
     clearAdd();
 
     if(index == 0)
+    {
         if(accessLevel == ADMIN)
         {
             ui -> adminAdd -> show(); // if user access level is admin, unlock admin tabs
@@ -2182,7 +2126,9 @@ void MainWindow::on_tabs_currentChanged(int index)
             ui->userAdd -> show();    // else use basic user tabs
             ui->adminAdd->hide();
         }
+    }
     else if(index == 1)
+    {
         if(accessLevel == ADMIN)
         {
             ui -> adminEdit -> show();
@@ -2193,6 +2139,7 @@ void MainWindow::on_tabs_currentChanged(int index)
             ui -> userEdit -> show();
             ui -> adminEdit -> hide();
         }
+    }
     else if(index == 2)
     {
         if(accessLevel == ADMIN)
@@ -2208,6 +2155,7 @@ void MainWindow::on_tabs_currentChanged(int index)
     }
 }
 
+//! Enables move spin boxes when the user elects to move a shape
 void MainWindow::on_moveButton_clicked()
 {
     ui -> xShiftBox -> setEnabled(true);
@@ -2215,6 +2163,7 @@ void MainWindow::on_moveButton_clicked()
     ui -> editShapeSpecs -> hide();
 }
 
+//! Enables the edit form when the user elects to edit a shape
 void MainWindow::on_editButton_clicked()
 {
     if(allShapes.getShapeCount()!=0)
@@ -2224,10 +2173,9 @@ void MainWindow::on_editButton_clicked()
     }
     ui -> xShiftBox -> setEnabled(false);
     ui -> yShiftBox -> setEnabled(false);
-
-
 }
 
+//! Enables the appropriate edit shape form depending on which shape the user elects to edit.
 void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
 {
     if(ui->editShapeID->count() != 0)
@@ -2311,6 +2259,7 @@ void MainWindow::on_editShapeID_currentTextChanged(const QString &arg1)
         ui -> editLine -> hide();}
 }
 
+//! Enables/disables edit polygon spin boxes depending on how many points the user chooses the polygon to have
 void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
 {
     disableEditPolygonSpinBoxes();
@@ -2433,6 +2382,7 @@ void MainWindow::on_editPolygonNumPoints_currentIndexChanged(int index)
     }
 }
 
+//! Enables/disables edit polyline spin boxes depending on how many points the user chooses the polyline to have
 void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
 {
     disableEditPolylineSpinBoxes();
@@ -2560,6 +2510,8 @@ void MainWindow::on_editPolylineNumPoints_currentIndexChanged(int index)
     }
 }
 
+//! Updates the shape vector with the new location for the shape that has been moved.
+//! These changes are reflected on the canvas.
 void MainWindow::on_moveUpdateButton_clicked()
 {
     int shapeId = (ui->editShapeID->currentText()).toInt();
@@ -2576,9 +2528,11 @@ void MainWindow::on_moveUpdateButton_clicked()
     ui->yShiftBox->setValue(0);
 }
 
+//! Permanently deletes a selected entry from the vector.
+//! These changes are reflected on the canvas.
 void MainWindow::on_deleteShapeButton_clicked()
 {
-    int shapeId = (ui->editShapeID->currentText()).toInt();
+    int shapeId = (ui->deleteShapeID->currentText()).toInt();
 
     if(QMessageBox::warning(this, "Delete Confirmation", "Are you sure you want to delete this shape?", QMessageBox::Yes, QMessageBox::No)
        == QMessageBox::Yes)
@@ -2600,6 +2554,7 @@ void MainWindow::on_deleteShapeButton_clicked()
     }
 }
 
+//! Shows the sorted table of ID's, Perimeters, or Areas depending on the tab that is clicked.
 void MainWindow::on_sortTabs_tabBarClicked(int index)
 {
     switch(index)
@@ -2613,6 +2568,7 @@ void MainWindow::on_sortTabs_tabBarClicked(int index)
     }
 }
 
+//! Displays the contact us window.
 void MainWindow::on_actionView_Contact_Info_triggered()
 {
     ui->contactUs->show();
@@ -2620,6 +2576,7 @@ void MainWindow::on_actionView_Contact_Info_triggered()
     ui->tabs->hide();
 }
 
+//! Prints the new vector to the output file to save user progress.
 void MainWindow::on_actionSave_Progress_triggered()
 {
     if(QMessageBox::question(this, "Save Current Progress", "Would you like to save all current shapes?", QMessageBox::Yes, QMessageBox::No)
@@ -2629,6 +2586,7 @@ void MainWindow::on_actionSave_Progress_triggered()
     }
 }
 
+//! Exits the contact us window.
 void MainWindow::on_exitContactUsWindow_clicked()
 {
     ui->contactUs->hide();
@@ -2636,6 +2594,7 @@ void MainWindow::on_exitContactUsWindow_clicked()
     ui->tabs->show();
 }
 
+//! Overrides the close event (when the user clicks the red x on the window).
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QMessageBox exitBox;
@@ -2683,6 +2642,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
+//! Logs out the user and resets all forms and access levels.
 void MainWindow::on_action_LogOut_triggered()
 {
    accessLevel = NONE;
@@ -2692,7 +2652,8 @@ void MainWindow::on_action_LogOut_triggered()
    ui->menuBar->hide();
 }
 
-
+//! Logs the user in if their username and password are correct.
+//! Otherwise, outputs an error message and waits for correct input.
 void MainWindow::on_pushButton_Login_clicked()
 {
     QString username = ui->lineEdit_username->text();
@@ -2741,7 +2702,7 @@ void MainWindow::on_pushButton_Login_clicked()
     ui->lineEdit_password->clear();
 }
 
-
+//! Quits the application.
 void MainWindow::on_pushButton_Exit_clicked()
 {
     QMessageBox::information(this, "Thank You", "Thank you for using the 2D Graphics Modeler!", QMessageBox::Close);

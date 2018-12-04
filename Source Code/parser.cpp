@@ -1,5 +1,23 @@
+/*!
+ * \brief   Parser CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "parser.h"
 
+//! Gets a single string from the input file and extracts the useful information.
+//! Returns this information as a string.
 string Parser::getStringFromFile(fstream &file)
 {
     string temp;
@@ -10,12 +28,14 @@ string Parser::getStringFromFile(fstream &file)
     return temp;
 }
 
+//! Gets a pointer to a new polymorphic shape depending on the string passed in.
 Shape* Parser::getShapePtr(std::string shapeType, QPaintDevice *device)
 {
     using namespace ShapeLabels;
 
     Shape* p_Shape = nullptr;
 
+    /*! Throws an exception if the shape type written into the file is not recognized. */
     try
     {
         if(shapeType == SHAPES_LIST[eShapes::LINE])
@@ -63,6 +83,7 @@ Shape* Parser::getShapePtr(std::string shapeType, QPaintDevice *device)
     return p_Shape;
 }
 
+//! Parses the entire shape input file and populates the vector.
 int Parser::parseShapes(myVector::vector<Shape*> &v_shapes, QPaintDevice *device)
 {
     using std::string;
@@ -71,7 +92,6 @@ int Parser::parseShapes(myVector::vector<Shape*> &v_shapes, QPaintDevice *device
     string line;
     int shapeCount{0};
 
-    // ALL SHAPE STUFF
     int tempId;
     string tempName;
     string dimString;
@@ -89,20 +109,20 @@ int Parser::parseShapes(myVector::vector<Shape*> &v_shapes, QPaintDevice *device
             Shape *p_Shape = nullptr;
             p_Shape = getShapePtr(tempName, device);
 
-            myVector::vector<int> v_dims;
+            std::vector<int> v_dims;
             int dim;
 
-            // TAKES IN & STORES STRING
+            /*! Takes in and stores the line from the file */
             dimString = getStringFromFile(datafile);
             std::istringstream buffer{dimString};
 
-            // PARSES THROUGH STRING
+            /*! Parses through the line */
             while(buffer >> dim)
             {
-                // ADDS DIMENSION TO THE DIMENSION VECTOR
+                /*! Adds a dimension to the dimension vector */
                 v_dims.push_back(dim);
 
-                // LOOKS AHEAD FOR WHITE SPACE + COMMA, IF IT SEES THIS, IGNORES THESE CHARACTERS AND TAKES IN NEXT DIMENSION
+                /*! Looks ahead for white space + comma, if it sees this, ignores these characters and takes in the next dimension */
                 if((buffer >> std::ws).peek() == ',')
                 {
                     buffer.ignore();
@@ -169,13 +189,12 @@ int Parser::parseShapes(myVector::vector<Shape*> &v_shapes, QPaintDevice *device
             v_shapes.push_back(p_Shape);
             shapeCount++;
 
-//            p_Shape -> print();
-
             datafile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         } // end while
     } // end if
 
-    // Closes Shape Input file
+    /*! Attempts to close the input file.
+     * Throws an exception if the file is not open */
     try
     {
         if(datafile.is_open())

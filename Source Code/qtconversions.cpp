@@ -1,5 +1,23 @@
+/*!
+ * \brief   QtConversions CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "qtconversions.h"
 #include <iostream>
+
+//! Finds a string in an array of strings and returns its location in the array.
 int findString(const std::string stringAr[], const int AR_SIZE, const std::string theString)
 {
     int i{0};
@@ -24,6 +42,7 @@ int findString(const std::string stringAr[], const int AR_SIZE, const std::strin
     }
 }
 
+//! Finds a string in an array of strings and returns its appropriate enum value from Qt.
 int findStringCustom(const std::string stringAr[], const int actualVal[], const int AR_SIZE, const std::string theString)
 {
     int i{0};
@@ -48,6 +67,7 @@ int findStringCustom(const std::string stringAr[], const int actualVal[], const 
     }
 }
 
+//! Gets a QColor as a string.
 std::string getColorAsString(QColor color)
 {
     string colorStr;
@@ -76,6 +96,7 @@ std::string getColorAsString(QColor color)
     return colorStr;
 }
 
+//! Gets a Qt::PenStyle as a string.
 std::string getPenStyleAsString(Qt::PenStyle penStyle)
 {
     string penStyleStr;
@@ -96,6 +117,7 @@ std::string getPenStyleAsString(Qt::PenStyle penStyle)
     return penStyleStr;
 }
 
+//! Gets a Qt::PenCapStyle as a string.
 std::string getCapStyleAsString(Qt::PenCapStyle capStyle)
 {
     string capStyleStr;
@@ -110,6 +132,7 @@ std::string getCapStyleAsString(Qt::PenCapStyle capStyle)
     return capStyleStr;
 }
 
+//! Gets a Qt::PenJoinStyle as a string.
 std::string getJoinStyleAsString(Qt::PenJoinStyle joinStyle)
 {
     string joinStyleStr;
@@ -124,6 +147,7 @@ std::string getJoinStyleAsString(Qt::PenJoinStyle joinStyle)
     return joinStyleStr;
 }
 
+//! Gets a Qt::BrushStyle as a string.
 std::string getBrushStyleAsString(Qt::BrushStyle brushStyle)
 {
     string brushStyleStr;
@@ -140,6 +164,7 @@ std::string getBrushStyleAsString(Qt::BrushStyle brushStyle)
     return brushStyleStr;
 }
 
+//! Gets a Qt::Alignment Flag as a string.
 std::string getTextAlignmentAsString(Qt::AlignmentFlag align)
 {
     string alignStr;
@@ -158,6 +183,7 @@ std::string getTextAlignmentAsString(Qt::AlignmentFlag align)
     return alignStr;
 }
 
+//! Gets a QFont::Style as a string.
 std::string getFontStyleAsString(QFont::Style style)
 {
     string styleStr;
@@ -172,6 +198,7 @@ std::string getFontStyleAsString(QFont::Style style)
     return styleStr;
 }
 
+//! Gets a QFont::Weight as a string.
 std::string getFontWeightAsString(QFont::Weight weight)
 {
     string weightStr;
@@ -188,21 +215,28 @@ std::string getFontWeightAsString(QFont::Weight weight)
     return weightStr;
 }
 
-
+//! Converts a Qt::GlobalColor to a string.
 Qt::GlobalColor convertToGlobalColor(std::string thisString) {return Qt::GlobalColor(findStringCustom(globalColorString, colorsAr, COLORS, thisString));}
 
+//! Converts a Qt::PenStyle to a string.
 Qt::PenStyle convertToPenStyle(std::string thisString) {return Qt::PenStyle(findString(penStyleString, PEN_STYLES, thisString));}
 
+//! Converts a Qt::PenCapStyle to a string.
 Qt::PenCapStyle convertToPenCapStyle(std::string thisString) {return Qt::PenCapStyle(findString(penCapStyleString, CAP_STYLES, thisString));}
 
+//! Converts a Qt::PenJoinStyle to a string.
 Qt::PenJoinStyle convertToPenJoinStyle(std::string thisString) {return Qt::PenJoinStyle(findString(penJoinStyleString, JOIN_STYLES, thisString));}
 
+//! Converts a Qt::BrushStyle to a string.
 Qt::BrushStyle convertToBrushStyle(std::string thisString) {return Qt::BrushStyle(findStringCustom(brushStyleString, brushStylesAr, BRUSH_STYLES, thisString));}
 
+//! Converts a Qt::AlignmentFlag to a string.
 Qt::AlignmentFlag convertToAlignmentFlag(std::string thisString) {return Qt::AlignmentFlag(findString(textAlignmentString, TEXT_ALIGNS, thisString));}
 
+//! Converts a QFont::Style to a string.
 QFont::Style convertToQFontStyle(std::string thisString) {return QFont::Style(findString(textFontStyleString, FONT_STYLES, thisString));}
 
+//! Converts a QFont::Weight to a string.
 QFont::Weight convertToQFontWeight(std::string thisString) {return QFont::Weight(findStringCustom(textFontWeightString, textWeightsAr, FONT_WEIGHTS, thisString));}
 
 

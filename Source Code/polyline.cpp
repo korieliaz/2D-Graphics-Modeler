@@ -1,29 +1,45 @@
+/*!
+ * \brief   Polyline CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "polyline.h"
 #include "qtconversions.h"
 #include <sstream>
 
-Polyline::Polyline(int shapeId, std::string shapeType, int numDimensions, dim::specs *shapeDimensions)
-    :Shape(shapeId, shapeType, numDimensions, shapeDimensions)
+//! Sets the QPainter object to draw a polyline according to the Polyline object's specifications.
+void Polyline::draw()
 {
-    setPosition();
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    painter.drawPolyline(&points[0], numDimensions/2);
+    painter.setPen(Qt::black);
+    painter.drawText(points[0].x(), points[0].y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
 }
 
-void Polyline::setPosition()
+//! Shifts the position of the polyline.
+void Polyline::move(const QPoint &shift)
 {
-    if(!points.empty())
+    for(std::vector<QPoint>::iterator it = points.begin(); it != points.end(); ++it)
     {
-        points.clear();
+        *it += shift;
     }
 
-    QPoint newPoint;
-    for(int i = 0; i < (numDimensions/2); i++)
-    {
-        newPoint.setX(shapeDimensions[(2*i)]);
-        newPoint.setY(shapeDimensions[(2*i)+1]);
-        points.push_back(newPoint);
-    }
+    setShapeDimensions(shift);
 }
 
+//! Calculates and returns the perimeter/length of the polyline.
 dim::perimeter Polyline::calcPerimeter() const
 {
     int *x0{nullptr}, *x1{nullptr}, *y0{nullptr}, *y1{nullptr};
@@ -45,25 +61,24 @@ dim::perimeter Polyline::calcPerimeter() const
     return perimeter;
 }
 
-void Polyline::draw()
+//! Sets the position of the points on the polyline.
+void Polyline::setPosition()
 {
-    painter.setPen(pen);
-    painter.setBrush(brush);
-    painter.drawPolyline(&points[0], numDimensions/2);
-    painter.setPen(Qt::black);
-    painter.drawText(points[0].x(), points[0].y(), 20, 20, Qt::AlignLeft, QString::number(shapeId));
-}
-
-void Polyline::move(const QPoint &shift)
-{
-    for(std::vector<QPoint>::iterator it = points.begin(); it != points.end(); ++it)
+    if(!points.empty())
     {
-        *it += shift;
+        points.clear();
     }
 
-    setShapeDimensions(shift);
+    QPoint newPoint;
+    for(int i = 0; i < (numDimensions/2); i++)
+    {
+        newPoint.setX(shapeDimensions[(2*i)]);
+        newPoint.setY(shapeDimensions[(2*i)+1]);
+        points.push_back(newPoint);
+    }
 }
 
+//! Sets the shape dimension array values to their new values after the polyline is moved.
 void Polyline::setShapeDimensions(const QPoint &shift)
 {
     for(int i = 0; i < numDimensions; i++)
@@ -73,6 +88,8 @@ void Polyline::setShapeDimensions(const QPoint &shift)
     }
 }
 
+//! Overrides the print function to print polyline specific information as a string.
+/*! \sa AllShapes::printAll() */
 std::string Polyline::print() const
 {
     using std::endl;

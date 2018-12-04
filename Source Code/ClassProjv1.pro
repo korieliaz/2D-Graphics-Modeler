@@ -48,7 +48,6 @@ HEADERS += \
     allshapes.h \
     libraries.h \
     shape.h \
-    vals_n_calcs.h \
     circle.h \
     ellipse.h \
     line.h \
@@ -65,7 +64,8 @@ HEADERS += \
     mainwindow.h \
     canvas.h \
     pch.h \
-    selectionsort.h
+    selectionsort.h \
+    custommath.h
 
 FORMS += \
         mainwindow.ui

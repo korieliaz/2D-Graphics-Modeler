@@ -1,16 +1,53 @@
+/*!
+ * \brief   AllShapes CPP File - Team Mittens USA
+ * \authors Kori Eliaz          <korieliaz@outlook.com>
+ * \authors Trevor Dunham       <trevor_d@outlook.com>
+ * \authors Michael Sinclair    <masinclair2@gmail.com>
+ * \authors Brian Ferguson      <bferguson@gmail.com>
+ * \authors Mariah Harris       <mariahh2017@gmail.com>
+ * \authors Ali Bingol          <mythologyali@gmail.com>
+ * \authors Peter Win           <peterzin@gmail.com>
+ * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
+ * \date    Fall 2018
+ * \copyright Team Mittens USA
+ * \copyright CS1C w/ Professor John Kath
+ * \copyright Saddleback College
+*/
+
 #include "allshapes.h"
 #include <sstream>
 
+//! Adds shapes from the input file.
 void AllShapes::addShapesFromFile()
 {
     shapeCount = shapeParser.parseShapes(v_Shapes, device);
+
+    setCurrentID();
 }
 
+//! Sets the current largest ID number in the vector.
+void AllShapes::setCurrentID()
+{
+    int current{0};
+
+    for(int i = 0; i < v_Shapes.size(); i++)
+    {
+        if(v_Shapes[i+1] > v_Shapes[i])
+        {
+            current = v_Shapes[i]->getID();
+        }
+    }
+
+    currentID = current;
+}
+
+//! Adds a new shape to the vector.
 void AllShapes::newShape(Shape *newShape)
 {
     v_Shapes.push_back(newShape);
 }
 
+//! (1 of 3) Edits the properties of a line or polyline in the vector.
 void AllShapes::editShape(int id, const int NUM_SPECS, dim::specs *dims, const QPen &pen)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -32,6 +69,7 @@ void AllShapes::editShape(int id, const int NUM_SPECS, dim::specs *dims, const Q
      }
 }
 
+//! (2 of 3) Edits the properties of a polygon, rectangle, square, ellipse, or circle in the vector.
 void AllShapes::editShape(int id, const int NUM_SPECS, dim::specs *dims, const QPen &pen, const QBrush &brush)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -54,6 +92,7 @@ void AllShapes::editShape(int id, const int NUM_SPECS, dim::specs *dims, const Q
     }
 }
 
+//! (3 of 3) Edits the properties of a text box in the vector.
 void AllShapes::editShape(int id, const int NUM_SPECS, dim::specs *dims, const QPen &pen, const QFont &font, Qt::AlignmentFlag flag, string text)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -78,6 +117,7 @@ void AllShapes::editShape(int id, const int NUM_SPECS, dim::specs *dims, const Q
     }
 }
 
+//! Moves a shape by a certain x and y shift.
 void AllShapes::moveShape(int id, const QPoint &shift)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -97,6 +137,7 @@ void AllShapes::moveShape(int id, const QPoint &shift)
     }
 }
 
+//! Finds a shape by its ID number and returns its shape type as a string.
 string AllShapes::findShape(int id)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -119,6 +160,7 @@ string AllShapes::findShape(int id)
     return shapeType;
 }
 
+//! Finds a shape by its ID number and returns a pointer to its location in the vector.
 Shape* AllShapes::findShapePtr(int id)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -141,6 +183,7 @@ Shape* AllShapes::findShapePtr(int id)
     return p_Shape;
 }
 
+//! Deletes a shape from the vector.
 void AllShapes::deleteShape(int id)
 {
     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
@@ -160,12 +203,12 @@ void AllShapes::deleteShape(int id)
      }
 }
 
-
+//! Prints all the shapes' information to the output file.
 void AllShapes::printAll()
 {
      fstream fout("shapes.txt", ios::out);
 
-     myVector::vector<Shape*>::iterator it = v_Shapes.begin();
+     myVector::vector<Shape*>::const_iterator it = v_Shapes.begin();
      int i{0};
 
      while(it != v_Shapes.end())
