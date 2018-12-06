@@ -36,7 +36,7 @@ public:
     //! Reads in shapes and populates the shape vector from a file
     /*! Reads through the entire file and populates the shape vector with Shape pointers holding shape specifications and properties.
      * Tracks the number of shapes that are entering the vector.
-     * \param v_Shapes the vector of Shape pointers, passed in by reference
+     * \param v_shapes the vector of Shape pointers, passed in by reference
      * \param device the pointer to the QPaintDevice
      * \sa AllShapes::addShapesFromFile()
      * \returns The number of shapes in the vector.

@@ -38,6 +38,9 @@ public:
      * \param shapeType the string representing a text box
      * \param numDimensions the number of dimensions a text box has
      * \param *shapeDimensions the pointer to the array of text box dimensions
+     * \param newFont the initialized QFont object
+     * \param newText the text to be displayed in the text box
+     * \param newFlag the alignment of the text in the text box
      */
     Text(int shapeId, std::string shapeType, int numDimensions, dim::specs* shapeDimensions, QFont newFont, std::string newText, Qt::AlignmentFlag newFlag)
           :Shape(shapeId, shapeType, numDimensions, shapeDimensions)

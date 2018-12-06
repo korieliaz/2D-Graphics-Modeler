@@ -50,14 +50,33 @@ bool areaCompare(Shape* bestShape, Shape* currentShape);
  */
 bool idCompare(Shape* bestShape, Shape* currentShape);
 
-//! Performs a selection sort on the passed in Shape vector.
-/*! Uses a function pointer to a specific comparison function to determine how the Shape vector will be sorted.
- * \param vector the Shape vector, passed in by reference
- * \param compareFunction(Shape*, Shape*) the function pointer to the comparison function
+//! A custom algorithm for a selection sort on a container.
+/*! Uses a function pointer to a specific comparison function to determine how the container will be sorted.
+ * \param v_begin the iterator to the beginning of the shape vector
+ * \param v_end the iterator to one past the end of the shape vector
+ * \param compareFunction the function pointer to the comparison function
  * \sa MainWindow::sortPerimeterTable()
  * \sa MainWindow::sortAreaTable()
  * \sa MainWindow::sortIDTable()
  */
-void selectionSort(myVector::vector<Shape*> &vector, bool(*compareFunction)(Shape*, Shape*));
+template<typename Iter, typename dIter>
+void selectionSort(Iter v_begin, Iter v_end, bool(*compareFunction)(dIter, dIter))
+{
+    Iter best;
 
+    for(Iter start = v_begin; start != v_end; ++start)
+    {
+        best = start;
+
+        for(Iter current = start + 1; current != v_end; ++current)
+        {
+            if(compareFunction(*best, *current))
+            {
+                best = current;
+            }
+        }
+
+        std::swap(*start, *best);
+    }
+}
 #endif // SELECTIONSORT_H

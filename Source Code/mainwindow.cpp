@@ -63,9 +63,12 @@ void MainWindow::updateShapeTables()
 //! Sorts the Shape vector by ID and fills ID table
 void MainWindow::sortIDTable()
 {
-    myVector::vector<Shape *> sortedVector = allShapes.getVector();
+    myVector::vector<Shape *>::iterator begin = allShapes.getVector().begin();
+    myVector::vector<Shape *>::iterator end = allShapes.getVector().end();
 
-    selectionSort(sortedVector, idCompare);
+    selectionSort(begin, end, idCompare);
+
+    myVector::vector<Shape *> sortedVector = allShapes.getVector();
 
     for(int i = 0; i < allShapes.getVector().size(); ++i)
     {
@@ -79,9 +82,12 @@ void MainWindow::sortIDTable()
 //! Sorts the Shape vector by perimeter and fills perimeter table
 void MainWindow::sortPerimeterTable()
 {
-    myVector::vector<Shape *> sortedVector = allShapes.getVector();
+    myVector::vector<Shape *>::iterator begin = allShapes.getVector().begin();
+    myVector::vector<Shape *>::iterator end = allShapes.getVector().end();
 
-    selectionSort(sortedVector, perimeterCompare);
+    selectionSort(begin, end, perimeterCompare);
+
+    myVector::vector<Shape *> sortedVector = allShapes.getVector();
 
     for(int i = 0; i < allShapes.getVector().size(); ++i)
     {
@@ -94,9 +100,12 @@ void MainWindow::sortPerimeterTable()
 //! Sorts the Shape vector by area and fills area table
 void MainWindow::sortAreaTable()
 {
-    myVector::vector<Shape *> sortedVector = allShapes.getVector();
+    myVector::vector<Shape *>::iterator begin = allShapes.getVector().begin();
+    myVector::vector<Shape *>::iterator end = allShapes.getVector().end();
 
-    selectionSort(sortedVector, areaCompare);
+    selectionSort(begin, end, areaCompare);
+
+    myVector::vector<Shape *> sortedVector = allShapes.getVector();
 
     for(int i = 0; i < allShapes.getVector().size(); ++i)
     {
