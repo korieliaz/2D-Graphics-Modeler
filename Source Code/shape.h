@@ -18,7 +18,7 @@ const int MIN_TEXT_POINT = -1;      /*!< The minimum text point size */
 const int MAX_TEXT_POINT = 50;      /*!< The maximum text point size */
 
 
-/*! \namespace <ShapeLabels>
+/*! \namespace ShapeLabels
  * \brief Contains enumerations and arrays that represent locations in QPoints and in arrays of shape dimensions.
  */
 namespace ShapeLabels
@@ -60,12 +60,12 @@ namespace ShapeLabels
      */
     const int NUM_SHAPE_DIMENSIONS[NUM_STATIC_SHAPES]
     {
-                                                        4,
-                                                        4,
-                                                        3,
-                                                        4,
-                                                        3,
-                                                        4
+        4,
+        4,
+        3,
+        4,
+        3,
+        4
     };
 
     //! The string array representing all shape types.
@@ -74,14 +74,14 @@ namespace ShapeLabels
      */
     const std::string SHAPES_LIST[NUM_SHAPES]
     {
-                                                "Line",
-                                                "Polyline",
-                                                "Polygon",
-                                                "Rectangle",
-                                                "Square",
-                                                "Ellipse",
-                                                "Circle",
-                                                "Text"
+        "Line",
+        "Polyline",
+        "Polygon",
+        "Rectangle",
+        "Square",
+        "Ellipse",
+        "Circle",
+        "Text"
     };
 }
 
