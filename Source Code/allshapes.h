@@ -1,17 +1,6 @@
 /*!
- * \brief   AllShapes Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class   AllShapes
+ * \brief   A controller class that manages the shape vector, parser, and the add, edit, and delete functions.
 */
 
 #ifndef ALLSHAPES_H_
@@ -21,7 +10,6 @@
 #include "shape_list.h"
 #include "parser.h"
 
-//! A controller class that manages the shape vector, parser, and the add, edit, and delete functions.
 /*! An object of the Parser class is implemented and used in this class via composition.
  * This allows the AllShapes class to navigate the text file containing all shape properties and fill the shapes vector.
  * An object of this class is implemented and used in the MainWindow class via composition.
@@ -66,9 +54,8 @@ class AllShapes
         */
         void newShape(Shape *newShape);
 
-        //! (1 of 3) Edits a shape in the shape vector.
-        /*! Overloaded function (1 of 3) - edits a shape without a QBrush or QFont element
-         * Shapes using this version of the function: Line, Polyline
+        //! Edits a shape without a QBrush or QFont element in the shape vector.
+        /*! Shapes using this version of the function: Line, Polyline
          * \param id the ID number of the shape being edited
          * \param NUM_SPECS the number of specifications the shape being edited has
          * \param *dims the array of shape dimensions
@@ -78,9 +65,8 @@ class AllShapes
         */
         void editShape(int id, const int NUM_SPECS, dim::specs *dims, const QPen &pen);
 
-        //! (2 of 3) Edits a shape in the shape vector.
-        /*! Overloaded function (2 of 3) - edits a shape with a QBrush element
-         * Shapes using this version of the function: Polygon, Rectangle, Square, Ellipse, Circle
+        //! Edits a shape with a QBrush element in the shape vector.
+        /*! Shapes using this version of the function: Polygon, Rectangle, Square, Ellipse, Circle
          * \param id the ID number of the shape being edited
          * \param NUM_SPECS the number of specifications the shape being edited has
          * \param *dims the array of shape dimensions
@@ -94,9 +80,8 @@ class AllShapes
         */
         void editShape(int id, const int NUM_SPECS, dim::specs *dims, const QPen &pen, const QBrush &brush);
 
-        //! (3 of 3) Edits a shape in the shape vector.
-        /*! Overloaded function (3 of 3) - edits a shape with a QFont element
-         * Shapes using this version of the function: Text
+        //! Edits a shape with a QFont element in the shape vector.
+        /*! Shapes using this version of the function: Text
          * \param id the ID number of the shape being edited
          * \param NUM_SPECS the number of specifications the shape being edited has
          * \param *dims the array of shape dimensions

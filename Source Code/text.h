@@ -1,17 +1,6 @@
 /*!
- * \brief   Text Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class Text
+ * \brief  The class managing a text box.
 */
 
 #ifndef TEXT_H_
@@ -28,7 +17,6 @@
  */
 const int NUM_TEXT_SPECS = 4;
 
-//! The class managing a text box.
 /*! Derived from abstract base class Shape.
  */
 class Text: public Shape
@@ -106,20 +94,6 @@ public:
                                 H   /*!< the height of the textbox (length across the y axis) */
                              };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif /*TEXT_H_*/
 //    std::string textString;

@@ -1,17 +1,6 @@
 /*!
- * \brief   Polygon Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class Polygon
+ * \brief   The class managing a polygon.
 */
 
 #ifndef POLYGON_H_
@@ -26,7 +15,6 @@
  */
 const int NUM_POLYGON_SPECS = -1;
 
-//! The class managing a polygon.
 /*! Derived from abstract base class Shape.
  * Polygons can have an infinite number of sides when written by hand into an input file.
  * When polygons are added via the application, they have a maximum of 10 sides.

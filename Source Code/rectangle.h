@@ -1,17 +1,6 @@
 /*!
- * \brief   Rectangle Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class Rectangle
+ * \brief   The class managing a rectangle.
 */
 
 #ifndef RECTANGLE_H_
@@ -25,7 +14,6 @@
  */
 const int NUM_RECTANGLE_SPECS = 4;
 
-//! The class managing a rectangle.
 /*! Derived from abstract base class Shape.
  */
 class Rectangle: public Shape

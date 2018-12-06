@@ -1,19 +1,3 @@
-/*!
- * \brief   Circle CPP File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
-*/
-
 #include "circle.h"
 
 //! Sets the QPainter object to draw a circle according to the Circle object's specifications.

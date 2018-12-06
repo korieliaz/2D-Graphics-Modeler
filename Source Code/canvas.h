@@ -1,17 +1,6 @@
 /*!
- * \brief   Canvas Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class   canvas
+ * \brief   The class managing the canvas/rendering area.
 */
 
 #ifndef CANVAS_H
@@ -22,7 +11,6 @@
 #include "vector.h"
 #include "shape.h"
 
-//! The class managing the canvas/rendering area.
 /*! The rendering area widget is promoted to class canvas; this is allowed since canvas is inherited from QWidget.
  * This promotion allows shapes to be rendered on the canvas using member functions located here.
  */

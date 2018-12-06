@@ -1,17 +1,6 @@
 /*!
- * \brief   CustomMath Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \file    custommath.h
+ * \brief   Custom templated math functions including multiplication, distance, and determinant.
 */
 
 #ifndef CUSTOMMATH_H_
@@ -19,7 +8,8 @@
 
 #include <cmath>
 
-/*! \namespace <dim> Holds all typedef dimensions of a shape allowing for increased readability.
+/*! \namespace <dim>
+ * \brief Holds all typedef dimensions of a shape allowing for increased readability.
  */
 namespace dim
 {
@@ -36,7 +26,7 @@ namespace dim
     const double PI = 3.1415953589793;  /*!< the constant PI, to 13 decimal places */
 }
 
-//! (1 of 3) - Templated function that multiplies 2 values of any two types.
+//! Templated function that multiplies 2 values of any two types.
 /*! Overloaded function (1 of 3) - Multiples 2 values together.
  * \param A a value of type T to be multipled
  * \param B a value of type U to be multiplied
@@ -45,7 +35,7 @@ namespace dim
 template<typename T, typename U>
 dim::specs multiply(T A, U B){return A * B;}
 
-//! (2 of 3) - Templated function that multiplies 3 values of any three types.
+//! Templated function that multiplies 3 values of any three types.
 /*! Overloaded function (2 of 3) - Multiples 3 values together.
  * \param A a value of type T to be multipled
  * \param B a value of type U to be multiplied
@@ -55,7 +45,7 @@ dim::specs multiply(T A, U B){return A * B;}
 template<typename T, typename U, typename V>
 dim::specs multiply(T A, U B, V C){return A * B * C;}
 
-//! (3 of 3) - Templated function that multiplies 4 values of any four types.
+//! Templated function that multiplies 4 values of any four types.
 /*! Overloaded function (3 of 3) - Multiples 4 values together.
  * \param A a value of type T to be multipled
  * \param B a value of type U to be multiplied

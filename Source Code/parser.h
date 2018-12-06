@@ -1,17 +1,6 @@
 /*!
- * \brief   Parser Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class Parser
+ * \brief  The class managing the parser for the shapes database.
 */
 
 #ifndef PARSER_H
@@ -25,7 +14,6 @@
 
 using namespace std;
 
-//! The class managing the parser for the shapes database.
 /*! This class purely reads in shape information from a text file and populates a vector of Shape pointers to be returned by reference to the controller class, AllShapes.
  */
 class Parser

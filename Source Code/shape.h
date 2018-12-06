@@ -1,18 +1,8 @@
 /*!
- * \brief   Shape Header File - Team Mittens USA
+ * \class Shape
+ * \brief   The abstract base class managing a shape.
+ * \brief   Line, Polyline, Polygon, Rectangle, Square, Ellipse, Circle, and Text are derived classes.
  * \brief   This class represents the abstract base class that serves as the parent for all eight Shape derived classes.
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
 */
 
 #ifndef SHAPE_H_
@@ -21,17 +11,15 @@
 #include "libraries.h"
 #include "custommath.h"
 
-//! Shapes Global Constants
 const int NUM_SHAPES = 8;           /*!< The total number of shapes represented in the application: Line, Polyline, Polygon, Rectangle, Square, Ellipse, Circle, Text */
 const int NUM_STATIC_SHAPES = 6;    /*!< The total number of shapes without dynamic shape dimensions: Line, Rectangle, Square, Ellipse, Circle, Text */
 
-//! Text Global Constants
 const int MIN_TEXT_POINT = -1;      /*!< The minimum text point size */
 const int MAX_TEXT_POINT = 50;      /*!< The maximum text point size */
 
 
 /*! \namespace <ShapeLabels>
- * Contains enumerations and arrays that represent locations in QPoints and in arrays of shape dimensions.
+ * \brief Contains enumerations and arrays that represent locations in QPoints and in arrays of shape dimensions.
  */
 namespace ShapeLabels
 {
@@ -63,34 +51,40 @@ namespace ShapeLabels
 
     //! The integer array representing the number of dimensions in shapes with a fixed number of dimensions.
     /*! This array applies to all shape types except for Polyline and Polygon, which have a dynamic number of dimensions.
+     * There are 4 Line dimensions: X1, Y1, X2, Y2.
+     * There are 4 Rectangle dimensions: X1, Y1, W, H.
+     * There are 3 Square dimensions: X1, Y1, L.
+     * There are 4 Ellipse dimensions: X1, Y1, A, B.
+     * There are 3 Circle dimensions: X1, Y1, RADIUS.
+     * There are 4 Text dimensions: X1, Y1, W, H.
      */
-    const int NUM_SHAPE_DIMENSIONS[NUM_STATIC_SHAPES]{
-                                                        4,  /*!< The number of line dimensions: X1, Y1, X2, Y2 */
-                                                        4,  /*!< The number of rectangle dimensions: X1, Y1, W, H */
-                                                        3,  /*!< The number of square dimensions: X1, Y1, L */
-                                                        4,  /*!< The number of ellipse dimensions: X1, Y1, A, B */
-                                                        3,  /*!< The number of circle dimensions: X1, Y1, RADIUS */
-                                                        4   /*!< The number of text box dimensions: X1, Y1, W, H */
-                                                     };
+    const int NUM_SHAPE_DIMENSIONS[NUM_STATIC_SHAPES]
+    {
+                                                        4,
+                                                        4,
+                                                        3,
+                                                        4,
+                                                        3,
+                                                        4
+    };
 
     //! The string array representing all shape types.
     /*! This array is used in tandem with the eShapes enumeration to parse through the input file and interpret string literals as actual shape types.
      * \sa Parser::parseShapes()
      */
-    const std::string SHAPES_LIST[NUM_SHAPES]{
-                                                "Line",         /*!< String literal representing a line. */
-                                                "Polyline",     /*!< String literal representing a polyline. */
-                                                "Polygon",      /*!< String literal representing a polygon. */
-                                                "Rectangle",    /*!< String literal representing a rectangle. */
-                                                "Square",       /*!< String literal representing a square. */
-                                                "Ellipse",      /*!< String literal representing a ellipse. */
-                                                "Circle",       /*!< String literal representing a circle. */
-                                                "Text"          /*!< String literal representing a text box. */
-                                              };
+    const std::string SHAPES_LIST[NUM_SHAPES]
+    {
+                                                "Line",
+                                                "Polyline",
+                                                "Polygon",
+                                                "Rectangle",
+                                                "Square",
+                                                "Ellipse",
+                                                "Circle",
+                                                "Text"
+    };
 }
 
-//! The abstract base class managing a shape.
-//! Line, Polyline, Polygon, Rectangle, Square, Ellipse, Circle, and Text are derived classes.
 /*! This class has five pure virtual functions: draw, move, calcPerimeter, calcArea, and setPosition.
  * These functions are overriden individually throughout all derived classes.
  */
@@ -341,18 +335,15 @@ public:
 
 
 protected:
-    /*! \note Generic Shape Specifications */
     int shapeId;                    /*!< the ID number representing the shape object */
     std::string shapeType;          /*!< the string representing the shape type */
     int numDimensions;              /*!< the number of dimensions the shape object has */
     dim::specs* shapeDimensions;    /*!< the pointer to the dynamic array of shape dimensions */
 
-    /*! \note Generic Shape Properties */
     QPainter painter;   /*!< the QPainter object holding QPen and QBrush properties */
     QPen pen;           /*!< the QPen object holding pen properties */
     QBrush brush;       /*!< the QBrush object holding brush properties */
 
-    /*! \note Text Specific Properties */
     QFont font;                     /*!< the QFont object holding font properties */
     std::string text;               /*!< the string of text displayed by the Text object */
     Qt::AlignmentFlag alignFlag;    /*!< the alignment setting of the text displayed by the Text object */

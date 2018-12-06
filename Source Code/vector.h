@@ -1,17 +1,6 @@
 /*!
- * \brief   Custom Vector Header File - Team Mittens USA
- * \authors Kori Eliaz          <korieliaz@outlook.com>
- * \authors Trevor Dunham       <trevor_d@outlook.com>
- * \authors Michael Sinclair    <masinclair2@gmail.com>
- * \authors Brian Ferguson      <bferguson@gmail.com>
- * \authors Mariah Harris       <mariahh2017@gmail.com>
- * \authors Ali Bingol          <mythologyali@gmail.com>
- * \authors Peter Win           <peterzin@gmail.com>
- * \authors Braden Wurlitzer    <wurlitzerb@gmail.com>
- * \date    Fall 2018
- * \copyright Team Mittens USA
- * \copyright CS1C w/ Professor John Kath
- * \copyright Saddleback College
+ * \class   vector
+ * \brief   The class managing a custom vector.
 */
 
 #ifndef VECTOR_H_
@@ -22,16 +11,15 @@
 using std::copy;
 
 /*! \namespace <myVector>
- * Wraps the entire custom vector in a custom namespace so as to differentiate it from the std::vector */
+ * \brief Wraps the entire custom vector in a custom namespace so as to differentiate it from the std::vector */
 namespace myVector
 {
 
-//! The class managing a custom vector.
-/*! This is a vector much like the stl vector container.
- * NOTE: elem[n] is a vector component n for all n >= 0 AND n < size_v
- * size_v = the number of items stored in the vector
- * space = the available storage capacity of the vector where size_v <= space
- * if size_v < space there is space for (space - size_v) items after elem[size_v - 1]
+/*! \brief This is a vector much like the stl vector container.
+ * \brief NOTE: elem[n] is a vector component n for all n >= 0 AND n < size_v.
+ * \brief size_v = the number of items stored in the vector.
+ * \brief space = the available storage capacity of the vector where size_v <= space.
+ * \brief if size_v < space there is space for (space - size_v) items after elem[size_v - 1].
  */
 template <class T>
 class vector
@@ -109,8 +97,8 @@ public:
     }
 
     //! Resizes the vector
-    /*! Makes the vector have an amount of elements equal to the passed in value
-     * Initializes each new element with the default value 0
+    /*! \brief Makes the vector have an amount of elements equal to the passed in value.
+     * \brief Initializes each new element with the default value 0.
      * \param newsize the amount of elements the resized vector should have
      */
     void resize(int newsize)
@@ -130,7 +118,7 @@ public:
      */
     void push_back(T d)
     {
-        /*! \brief Starts with space for 8 elements
+        /*! \brief Starts with space for 8 elements.
          * \brief If this is not enough space, gets more space.
          */
         if (space == 0)
@@ -161,12 +149,11 @@ public:
         elem = p;
     }
 
-    /*! \note Defines iterators */
     using iterator = T *;
     using const_iterator = const T *;
 
     //! Defines the iterator begin - points to the first element
-    //! Read/Write
+    /*! \brief Read/Write */
     iterator begin() // points to first element
     {
         if (size_v == 0)
@@ -175,7 +162,7 @@ public:
     }
 
     //! Defines the constant iterator begin - points to the first element
-    //! Read Only
+    /*! \brief Read Only */
     const_iterator begin() const
     {
         if (size_v == 0)
@@ -184,7 +171,7 @@ public:
     }
 
     //! Defines the iterator end - points to one beyond the last element
-    //! Read/Write
+    /*! \brief Read/Write */
     iterator end()
     {
         if (size_v == 0)
@@ -193,7 +180,7 @@ public:
     }
 
     //! Defines the constant iterator end - points to one beyond the last element
-    //! Read Only
+    /*! \brief Read Only */
     const_iterator end() const
     {
         if (size_v == 0)
