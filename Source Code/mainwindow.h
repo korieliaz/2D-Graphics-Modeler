@@ -17,14 +17,13 @@
 /*! Forward declaration of the Canvas class */
 class Canvas;
 
-/*! \namespace <Ui>
+/*! \namespace Ui
  * \brief Includes forward declaration of the MainWindow class */
 namespace Ui {
 class MainWindow;
 }
 
 using namespace ShapeLabels;
-
 
 class MainWindow : public QMainWindow
 {

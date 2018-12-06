@@ -10,7 +10,7 @@
 #include <algorithm>
 using std::copy;
 
-/*! \namespace <myVector>
+/*! \namespace myVector
  * \brief Wraps the entire custom vector in a custom namespace so as to differentiate it from the std::vector */
 namespace myVector
 {

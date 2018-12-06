@@ -8,20 +8,38 @@
 
 #include <cmath>
 
-/*! \namespace <dim>
+/*! \namespace dim
  * \brief Holds all typedef dimensions of a shape allowing for increased readability.
  */
 namespace dim
 {
-    typedef int coord;  /*!< a coordinate point */
-    typedef int side;   /*!< a side length */
-    typedef int radius; /*!< a radius */
-    typedef int axis;   /*!< a major/minor axis */
+    /*! \typedef coord
+     * a coordinate point */
+    typedef int coord;
 
-    typedef int specs;  /*!< the number of shape specifications */
+    /*! \typedef side
+     * a side length */
+    typedef int side;
 
-    typedef double area;    /*!< the area of a shape */
-    typedef double perimeter;   /*!< the perimeter of a shape */
+    /*! \typedef radius
+     * a radius */
+    typedef int radius;
+
+    /*! \typedef axis
+     * a major/minor axis */
+    typedef int axis;
+
+    /*! \typedef specs
+     * a general purpose, numerical shape specification */
+    typedef int specs;
+
+    /*! \typedef area
+     * the area of a shape */
+    typedef double area;
+
+    /*! \typedef perimeter
+     * the perimeter of a shape */
+    typedef double perimeter;
 
     const double PI = 3.1415953589793;  /*!< the constant PI, to 13 decimal places */
 }

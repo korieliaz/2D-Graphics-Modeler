@@ -1,6 +1,6 @@
 /*!
  * \class   Circle
- * \brief   Circle Header File - Team Mittens USA
+ * \brief   The class managing a circle.
 */
 
 
