@@ -1,0 +1,178 @@
+Team Mittens USA Project Requirements Checklist
+***********************************************
+
+===============================
+Individual Project Requirements
+===============================
+
+2) Contact Us
+	- mainwindow.h (lines 267, 273)
+	- mainwindow.cpp (lines 2533-2537, 2551-2555)
+	
+3) Display all graphic objects in rendering window with corresponding Shape ID
+	- canvas.h (line 38)
+	- canvas.cpp (lines 23-33)
+
+	- mainwindow.h (lines 35, 243, 255, 258)
+	- mainwindow.cpp (lines 20, 1798, 2486, 2502)
+
+	- circle.h (line 54)
+	- circle.cpp (lines 4-11)
+
+	- ellipse.h (line 51)
+	- ellipse.cpp (lines 4-11)
+
+	- line.h (line 54)
+	- line.cpp (lines 6-13)
+
+	- polygon.h (line 48)
+	- polygon.cpp (lines 4-11)
+
+	- polyline.h (line 46)
+	- polyline.cpp (lines 6-13)
+
+	- rectangle.h (line 51)
+	- rectangle.cpp (lines 4-11)
+
+	- square.h (line 50)
+	- square.cpp (lines 4-11)
+
+	- text.h (line 57)
+	- text.cpp (lines 6-18)
+
+4) Reads from a shape file that keeps track of all shapes currently being rendered by 2D modeler.
+	- parser.h (line 44)
+	- parser.cpp (lines 71-178)
+
+	- allshapes.h (line 36)
+	- allshapes.cpp (line 7)
+
+5) Move shapes, including text, being rendered.	
+	- allshapes.h (line 103)
+	- allshapes.cpp (lines 105-122)
+		
+	- mainwindow.h (line 255)
+	- mainwindow.cpp (lines 2478-2486)
+
+	- circle.h (line 60)
+	- circle.cpp (lines 14-18)
+
+	- ellipse.h (line 57)
+	- ellipse.cpp (lines 14-17)
+
+	- line.h (line 60)
+	- line.cpp (lines 16-21)
+
+	- polygon.h (line 54)
+	- polygon.cpp (lines 14-22)
+		
+	- polyline.h (line 52)
+	- polyline.cpp (lines 16-24)
+		
+	- rectangle.h (line 57)
+	- rectangle.cpp (lines 14-18)
+
+	- square.h (line 56)
+	- square.cpp (lines 14-18)
+		
+	- text.h (line 63)
+	- text.cpp (lines 21-25)
+
+6) Add/Remove shapes, including text, being rendered.
+	- allshapes.h (lines 55, 137)
+	- allshapes.cpp (lines 29-32, 171-188)
+		
+	- mainwindow.h (lines 135, 147, 165, 183, 195, 207, 219, 231, 258)
+	- mainwindow.cpp (lines 2496-2502)
+		
+
+7) Shape listing report sorted by ID.
+	- selectionsort.h (lines 51, 63-81)
+	- selectionsort.cpp (lines 16-32)
+		
+	- mainwindow.h (line 44)
+	- mainwindow.cpp (lines 64-80)
+
+8) Shape listing report sorted by area.
+	- selectionsort.h (lines 36, 63-81)
+	- selectionsort.cpp (lines 10-13)
+
+	- mainwindow.h (line 50)
+	- mainwindow.cpp (lines 101-116)
+
+9) Shape listing report sorted by perimeter.
+	- selectionsort.h (lines 24, 63-81)
+	- selectionsort.cpp (lines 4-7)
+
+	- mainwindow.h (line 47)
+	- mainwindow.cpp (lines 83-98)
+
+10) Save all changes between executions.
+(NOTE: our program does not update the shapes.txt file UNLESS the user chooses to save their progress. 
+This feature was included for added realism.)
+
+	- allshapes.h (line 140)
+	- allshapes.cpp (lines 191-212)
+		
+	- mainwindow.h (line 270)
+	- mainwindow.cpp (lines 2541-2548, 2584-2594, 2611)
+
+============================
+General Project Requirements
+============================
+
+**Inheritance
+	- class Shape has derived classes Circle, Ellipse, Line, Polygon, Polyline, Rectangle, Square, and Text.
+	- class shapeException is derived from the standard exception class.
+		- shapeexception.h (line 17)
+	- class canvas is derived from the QWidget class. 
+		- canvas.h (line 17)
+	- class MainWindow is derived from the QMainWindow class.
+		- mainwindow.h (line 28)
+
+**Composition
+	- class AllShapes uses a Parser object
+		- allshapes.h (line 144)
+	- class MainWindow uses an AllShapes object
+		- mainwindow.h (line 286)
+	- class Shape uses QPainter, QPen, QBrush, QFont, and Qt::AlignmentFlag objects
+		- shape.h (lines 343, 344, 345, 347, 349)
+	- classes Circle, Ellipse, Line, Rectangle, Square, and Text use QPoint object(s)
+
+**Virtual Function
+	- class Shape has a virtual print function that is overriden by classes Line, Polyline, and Text
+		- shape.h (line 289)
+		- line.h (line 90)
+		- polyline.h (line 82)
+		- text.h (line 85)
+
+**2+ Overloaded Operators
+	- class Shape defines three overloaded operators (<, >, ==)
+		- shape.h (lines 139, 146, 153)
+	- overloaded > used here:
+		- allshapes.cpp (line 19) 
+	- overloaded == and < used here:
+		- selectionsort.cpp (lines 21, 31)
+
+**Templates
+	- class vector is a templated class
+		- vector.h (entire class)
+	- the files custommath.h defines templated functions that are used to calculate perimeters and areas for all derived Shape classes
+		- custommath.h (lines 53-54, 63-64, 74-75, 87-91, 108-112)
+	- the file selectionsort.h defines a templated selection sort algorithm
+		- selectionsort.h (62-81)
+
+**Pointer
+	- class vector contains a pointer (T *elem) and has a copy constructor
+		- vector.h (lines 28, 46-49)
+	- class Shape contains a pointer (dim::specs *shapeDimensions) but copy constructor was disabled.
+		- shape.h (lines 100, 119, 341)
+
+===========================
+Extra Credit Selection Sort
+===========================
+	- selectionsort.h
+	- selectionsort.cpp
+
+	- mainwindow.h (lines 44, 47, 50)
+	- mainwindow.cpp (lines 64-80, 83-98, 101-116) 
